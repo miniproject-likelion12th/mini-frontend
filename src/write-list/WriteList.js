@@ -2,6 +2,7 @@ import React from "react";
 import CategoryList from "./component/CategoryList";
 import QuestionTitle from "./component/QuestionTitle";
 import styled from "styled-components";
+import BottomButton from "./component/BottomButton";
 
 const WriteList = () => {
   return (
@@ -12,6 +13,7 @@ const WriteList = () => {
       </Group>
       <QuestionTitle text="오늘은 어떤 버킷리스트를 작성할까요?" />
       <CategoryList />
+      <BottomButton text="작성 시작하기" />
     </div>
   );
 };
