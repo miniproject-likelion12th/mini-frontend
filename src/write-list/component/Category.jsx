@@ -9,9 +9,12 @@ const Category = ({ text }) => {
   )}.svg`;
 
   return (
-    <Wrapper clicked={clicked} onClick={() => setClicked((prev) => !prev)}>
+    <Wrapper
+      className={clicked ? "clicked" : ""}
+      onClick={() => setClicked((prev) => !prev)}
+    >
       <Image src={imgSrc} />
-      <Text clicked={clicked}>{text}</Text>
+      <Text className={clicked ? "clicked" : ""}>{text}</Text>
     </Wrapper>
   );
 };
@@ -24,28 +27,35 @@ const Wrapper = styled.div`
   padding: 7px 10px;
   background: #fbfefd;
   border-radius: 15px;
-  border: 2px solid ${(props) => (props.clicked ? "#6FBC89" : "#979797")};
+  border: 2px solid #979797;
   display: flex;
   justify-content: center;
   align-items: center;
   gap: 3px;
   box-shadow: 0px 1px 2px 0px #00000040;
   cursor: pointer;
+
+  &.clicked {
+    border-color: #6fbc89;
+  }
 `;
 
 const Image = styled.img`
   width: 22px;
   height: 22px;
-  fill: ${(props) => (props.clicked ? "#6FBC89" : "#979797")};
 `;
 
 const Text = styled.div`
   font-size: 15px;
   font-weight: 400;
   line-height: 22px;
-  letter-spacing: -0.40799999237060547px;
+  letter-spacing: -0.408px;
   text-align: center;
   text-underline-position: from-font;
   text-decoration-skip-ink: none;
-  color: ${(props) => (props.clicked ? "#6FBC89" : "#979797")};
+  color: #979797;
+
+  &.clicked {
+    color: #6fbc89;
+  }
 `;

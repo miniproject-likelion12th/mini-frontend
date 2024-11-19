@@ -16,8 +16,8 @@ const CategoryList = () => {
 
   return (
     <Wrapper>
-      {categoryList.map((category) => (
-        <Category text={category} />
+      {categoryList.map((category, key) => (
+        <Category text={category} key={key} />
       ))}
     </Wrapper>
   );
@@ -28,4 +28,5 @@ export default CategoryList;
 const Wrapper = styled.div`
   display: flex;
   gap: 10px;
+  flex-wrap: wrap;
 `;
