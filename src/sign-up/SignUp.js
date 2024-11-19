@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 
 const SignUp = () => {
-  return <div>sign up</div>;
+  return <div>회원가입</div>;
 };
 
 export default SignUp;
