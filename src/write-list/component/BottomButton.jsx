@@ -1,15 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const BottomButton = ({ text }) => {
-  return <Wrapper>{text}</Wrapper>;
+const BottomButton = ({ text, display }) => {
+  return <Wrapper style={display ? null : { display: "none" }}>{text}</Wrapper>;
 };
 
 export default BottomButton;
 
 const Wrapper = styled.div`
-  width: 339px;
+  width: 336px;
   height: 42px;
+  margin-bottom: 40px;
   border-radius: 5px;
   border: 2px solid #6fbc89;
   background: #fbfefd;
