@@ -38,6 +38,9 @@ export const InputBox = styled.div`
   font-weight: 400;
   line-height: normal;
 `;
+export const EmailBox = styled.div`
+  display: flex;
+`;
 export const Email = styled.input`
   width: 247px;
   height: 44px;
@@ -48,10 +51,20 @@ export const Email = styled.input`
   padding: 0 12px;
   font-family: "YiSunShinDotumM";
 `;
+
+export const DeleteContainer_Login = styled.div`
+  margin-top: 15px;
+  margin-left: -25px;
+`;
+export const DeleteImg = styled.img``;
+
+export const PasswordBox = styled.div`
+  /* display: flex; */
+  margin-top: -15px;
+`;
 export const Password = styled.input`
   width: 247px;
   height: 44px;
-  flex-shrink: 0;
   border-radius: 0 0 10px 10px;
   border-top: none;
   border: 0.5px solid #6fbc89;
@@ -60,7 +73,16 @@ export const Password = styled.input`
   padding: 0 12px;
   font-family: "YiSunShinDotumM";
 `;
-
+export const EyeContainer = styled.div`
+  position: relative;
+  margin-left: 223px;
+  transform: translateY(-150%);
+`;
+export const EyeImg = styled.img``;
+export const DeleteContainer_Password = styled.div`
+  margin-top: -45px;
+  margin-left: 247px;
+`;
 export const LoginCaption = styled.div`
   margin-top: 15px;
   text-align: center;
