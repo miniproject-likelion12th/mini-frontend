@@ -2,8 +2,8 @@ import React, { useState } from "react";
 import * as S from "./styled";
 import loginLogo from "../assets/img/Login_logo.svg";
 import { useNavigate } from "react-router";
-import Button from "../component/Button";
-import ErrorMessage from "../component/ErrorMessage";
+import Button from "../component/common/Button";
+import ErrorMessage from "../component/common/ErrorMessage";
 
 const Login = () => {
   const navigate = useNavigate();

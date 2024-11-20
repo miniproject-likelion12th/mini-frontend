@@ -24,15 +24,17 @@ const CommonButton = styled.button`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   border-radius: 10px;
   cursor: pointer;
-  background-color: ${(props) => props.bgColor || "#fff"};
-  color: ${(props) => props.color || "#000"};
+  background-color: ${(props) => props.bgColor || "#6FBC89"};
+  color: ${(props) => props.color || "#FBFEFD"};
   border: none;
   text-align: center;
-  font-family: "YiSunShin Dotum B";
+  font-family: "YiSunShinDotumM";
   font-size: 17px;
   font-style: normal;
-  font-weight: 400;
+  font-weight: 700;
   line-height: normal;
+  display: block;
+  margin: 0 auto;
 `;
 
 const ButtonText = styled.p`

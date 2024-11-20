@@ -39,6 +39,20 @@ const GlobalStyle = createGlobalStyle`
     font-style: normal;
   }
 
+  @font-face {
+    font-family: 'YiSunShinDotumB';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumB.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
+  @font-face {
+    font-family: 'YiSunShinDotumL';
+    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumL.woff') format('woff');
+    font-weight: normal;
+    font-style: normal;
+  }
+
   body {
     font-family: 'YiSunShinDotumM', sans-serif;
     width: 100%;

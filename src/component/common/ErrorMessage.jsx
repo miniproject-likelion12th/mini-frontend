@@ -1,5 +1,5 @@
 import React from "react";
-import ErrorIcon from "../assets/img/ErrorIcon.svg";
+import ErrorIcon from "../../assets/img/ErrorIcon.svg";
 import styled from "styled-components";
 
 const ErrorMessage = ({ text, style }) => {
@@ -17,7 +17,7 @@ const ErrorContainer = styled.div`
   display: flex;
   align-items: center;
   color: #e2725b;
-  font-family: "YiSunShin Dotum B";
+  font-family: "YiSunShinDotumM";
   font-size: 12px;
   font-weight: 400;
   line-height: normal;

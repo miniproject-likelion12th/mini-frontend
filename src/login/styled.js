@@ -8,7 +8,7 @@ export const LoginPage = styled.div`
   justify-content: center;
 `;
 export const LogoContanier = styled.div`
-  margin-top: 45%;
+  margin-top: calc(50% - 70px);
   margin-bottom: 20px;
   display: flex;
   flex-direction: column;
@@ -23,7 +23,6 @@ export const LogoMessage = styled.div`
   margin-top: 20px;
   color: #4a4a4a;
   text-align: center;
-  font-family: "YiSunShin Dotum M";
   font-size: 13px;
   font-style: normal;
   font-weight: 400;
@@ -34,7 +33,6 @@ export const InputBox = styled.div`
   background: #fff;
   outline: none;
   color: #979797;
-  font-family: "YiSunShin Dotum M";
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
@@ -48,6 +46,7 @@ export const Email = styled.input`
   border-radius: 10px 10px 0 0;
   outline: none;
   padding: 0 12px;
+  font-family: "YiSunShinDotumM";
 `;
 export const Password = styled.input`
   width: 247px;
@@ -59,13 +58,13 @@ export const Password = styled.input`
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
   outline: none;
   padding: 0 12px;
+  font-family: "YiSunShinDotumM";
 `;
 
 export const LoginCaption = styled.div`
   margin-top: 15px;
   text-align: center;
   color: #979797;
-  font-family: "YiSunShin Dotum M";
   font-size: 12px;
   font-style: normal;
   font-weight: 400;
@@ -75,7 +74,7 @@ export const GrayText = styled.div``;
 export const LoginBold = styled.span`
   margin-left: 10px;
   color: #4a4a4a;
-  font-family: "YiSunShin Dotum B";
+  font-family: "YiSunShinDotumB";
   font-weight: 700;
   text-decoration-line: underline;
   text-decoration-style: solid;
