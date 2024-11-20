@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const ChoosePeriod = ({ clicked, setClicked }) => {
+const PeriodButton = ({ clicked, setClicked }) => {
   const shortSrc = `bucket-period${
     clicked === "left" ? "/green" : ""
   }/단기버킷.svg`;
@@ -17,7 +17,7 @@ const ChoosePeriod = ({ clicked, setClicked }) => {
   );
 };
 
-export default ChoosePeriod;
+export default PeriodButton;
 
 const Wrapper = styled.div`
   width: 100%;

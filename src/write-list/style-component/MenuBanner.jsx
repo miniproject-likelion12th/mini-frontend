@@ -29,6 +29,7 @@ const MenuWrapper = styled.div`
   width: 100%;
   height: 58px;
   display: flex;
+  margin-bottom: 4px;
 `;
 
 const Menu = styled(Wrapper)`

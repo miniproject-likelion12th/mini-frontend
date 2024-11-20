@@ -14,6 +14,7 @@ export default Banner;
 export const Wrapper = styled.div`
   width: 100%;
   height: 63px;
+  margin-bottom: 4px;
   background: #fbfefd;
   display: flex;
   justify-content: center;

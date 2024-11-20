@@ -14,4 +14,5 @@ const Title = styled.div`
   font-weight: 400;
   line-height: 22px;
   letter-spacing: -0.408px;
+  text-align: left;
 `;

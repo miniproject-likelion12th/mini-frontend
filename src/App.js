@@ -2,8 +2,8 @@ import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
-import WriteList from "./write-list/WriteList";
 import { createGlobalStyle } from "styled-components";
+import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
 
 const router = createBrowserRouter(
   [
@@ -20,8 +20,8 @@ const router = createBrowserRouter(
       element: <SignUp />,
     },
     {
-      path: "/writeList",
-      element: <WriteList />,
+      path: "/ChoosePeriod",
+      element: <ChoosePeriod />,
     },
   ],
   {
