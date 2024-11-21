@@ -42,7 +42,7 @@ const BackImg = styled.img`
   height: 27px;
   flex-shrink: 0;
   cursor: pointer;
-  margin-left: 10px;
+  margin-left: 30px;
 `;
 const Text = styled.div`
   margin-left: 30%;

@@ -26,6 +26,12 @@ export const Text = styled.div`
   line-height: 1.5;
 `;
 export const SignupInputContainer = styled.div`
-  margin: 43px auto 0 auto;
+  margin: 20px auto 0 auto;
   width: 100%;
+`;
+export const ErrorContainer = styled.div`
+  margin-top: -13px;
+`;
+export const SinputButtonContainer = styled.div`
+  margin-top: 30px;
 `;

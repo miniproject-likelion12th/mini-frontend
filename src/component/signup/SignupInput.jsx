@@ -2,8 +2,6 @@ import React from "react";
 import styled from "styled-components";
 
 const SignupInput = ({
-  id,
-  name,
   inputTitle,
   value,
   onChange,
@@ -17,8 +15,6 @@ const SignupInput = ({
         <InputText>* 필수 입력 항목입니다.</InputText>
       </InputTextContiner>
       <Input
-        id={id}
-        name={name}
         value={value}
         onChange={onChange}
         type={type}
@@ -31,6 +27,7 @@ const SignupInput = ({
 export default SignupInput;
 
 const InputContainer = styled.div`
+  margin-top: 20px;
   display: flex;
   flex-direction: column;
   align-items: flex-start;
@@ -62,6 +59,7 @@ const InputText = styled.div`
   padding-bottom: 3px;
 `;
 const Input = styled.input`
+  margin-bottom: 0;
   width: 270px;
   border-radius: 15px;
   border: 0.5px solid #6fbc89;
@@ -78,5 +76,4 @@ const Input = styled.input`
   &::placeholder {
     color: #adadad;
   }
-  margin-bottom: 43px;
 `;
