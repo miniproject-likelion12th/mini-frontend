@@ -8,6 +8,8 @@ const QuestionTitle = ({ text }) => {
 export default QuestionTitle;
 
 const Title = styled.div`
+  width: fit-content;
+  margin-bottom: 3px;
   color: #4a4a4a;
   font-size: 21px;
   font-style: normal;
