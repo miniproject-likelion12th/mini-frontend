@@ -1,9 +1,9 @@
 import React, { useState, useRef } from "react";
 import * as S from "./SignupMain_styled";
 import SignupInput from "./SignupInput";
-import Button from "../common/Button";
-import ErrorMessage from "../common/ErrorMessage";
-import SignupModal from "../common/SignupModal";
+import Button from "../../component/common/Button";
+import ErrorMessage from "../../component/common/ErrorMessage";
+import SignupModal from "../../component/common/SignupModal";
 
 const SignupMain = () => {
   const [username, setUsername] = useState("");
