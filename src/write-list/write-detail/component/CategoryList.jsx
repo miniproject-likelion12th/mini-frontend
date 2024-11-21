@@ -29,4 +29,5 @@ const Wrapper = styled.div`
   display: flex;
   gap: 10px;
   flex-wrap: wrap;
+  margin-top: 19px;
 `;

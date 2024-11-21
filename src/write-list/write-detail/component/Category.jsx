@@ -46,6 +46,7 @@ const Image = styled.img`
 `;
 
 const Text = styled.div`
+  font-family: "YiSunShinDotumB";
   font-size: 15px;
   font-weight: 400;
   line-height: 22px;

@@ -23,6 +23,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: #6fbc89;
+  font-family: "YiSunShinDotumB";
   font-size: 17px;
   font-style: normal;
   font-weight: 400;

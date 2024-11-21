@@ -11,10 +11,10 @@ const Title = styled.div`
   width: fit-content;
   margin-bottom: 3px;
   color: #4a4a4a;
-  font-size: 21px;
+  font-size: 19px;
   font-style: normal;
   font-weight: 400;
   line-height: 22px;
-  letter-spacing: -0.408px;
+  letter-spacing: -0.7px;
   text-align: left;
 `;
