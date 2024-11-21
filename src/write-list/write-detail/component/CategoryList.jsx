@@ -2,7 +2,7 @@ import React from "react";
 import Category from "./Category";
 import styled from "styled-components";
 
-const CategoryList = () => {
+const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
   const categoryList = [
     "여행",
     "취미/문화",
@@ -17,7 +17,12 @@ const CategoryList = () => {
   return (
     <Wrapper>
       {categoryList.map((category, key) => (
-        <Category text={category} key={key} />
+        <Category
+          text={category}
+          key={key}
+          selectedCategory={selectedCategory}
+          onChange={(e) => setSelectedCategory(category)}
+        />
       ))}
     </Wrapper>
   );

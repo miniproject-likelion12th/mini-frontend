@@ -12,7 +12,21 @@ import WarningText from "../style-component/WarningText";
 
 const WriteDetail = () => {
   const navigate = useNavigate();
+  const [bucketList, setBucketList] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [reason, setReason] = useState("");
   const [showWaring, setShowWaring] = useState(false);
+
+  const moveToNext = () => {
+    if (!bucketList || !selectedCategory || !reason) {
+      setShowWaring(true);
+      return;
+    }
+
+    // post 요청 보낼 request 정리
+    // 넘길 때 카테고리 영어로 바꿔서 전달
+    // request 들고 navigate
+  };
 
   return (
     <Wrapper>
@@ -27,14 +41,22 @@ const WriteDetail = () => {
           <Irume>
             <img src="banner/irume-input-deco.svg" />
           </Irume>
-          <Input type="text" placeholder="버킷리스트를 작성해주세요." />
+          <Input
+            type="text"
+            value={bucketList}
+            placeholder="버킷리스트를 작성해주세요."
+            onChange={(e) => setBucketList(e.target.value)}
+          />
         </QnA>
         <QnA>
           <Ask>
             <QuestionTitle text="버킷리스트의 카테고리를 정해주세요." />
             <NoticeText />
           </Ask>
-          <CategoryList />
+          <CategoryList
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
         </QnA>
         <QnA>
           <Ask>
@@ -43,18 +65,18 @@ const WriteDetail = () => {
           <Irume>
             <img src="banner/irume-input-deco.svg" />
           </Irume>
-          <TextArea placeholder="버킷리스트가 된 계기를 작성해주세요." />
+          <TextArea
+            value={reason}
+            placeholder="버킷리스트가 된 계기를 작성해주세요."
+            onChange={(e) => setReason(e.target.value)}
+          />
         </QnA>
       </NewContainer>
       <WarningText
         text="필수 입력 항목을 모두 작성해주세요."
         display={showWaring}
       />
-      <BottomButton
-        text="다음"
-        display={true}
-        onClick={() => setShowWaring(true)}
-      />
+      <BottomButton text="다음" display={true} onClick={moveToNext} />
     </Wrapper>
   );
 };
