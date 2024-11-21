@@ -17,7 +17,6 @@ export default SignUp;
 const SignupPage = styled.div`
   width: 393px;
   height: 100vh;
-  overflow-y: scroll;
   ::-webkit-scrollbar {
     display: none;
   }

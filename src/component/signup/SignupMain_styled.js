@@ -4,7 +4,7 @@ import styled from "styled-components";
 export const SignupMain = styled.div`
   display: flex;
   flex-direction: column;
-  margin: 0 auto 70px;
+  margin: 70px auto;
   justify-content: center;
   width: 100%;
   max-width: 300px;

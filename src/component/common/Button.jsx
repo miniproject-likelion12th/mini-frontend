@@ -35,6 +35,7 @@ const CommonButton = styled.button`
   line-height: normal;
   display: block;
   margin: 0 auto;
+  cursor: pointer;
 `;
 
 const ButtonText = styled.p`

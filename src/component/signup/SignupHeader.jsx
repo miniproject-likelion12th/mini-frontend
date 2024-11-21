@@ -24,9 +24,13 @@ const SignupHeader = () => {
 export default SignupHeader;
 
 const Header = styled.div`
+  z-index: 100px;
+  position: fixed;
+  top: 0;
   width: 100%;
   height: 63px;
   flex-shrink: 0;
+  background-color: #fff;
   color: #000;
   text-align: center;
   font-size: 20px;
@@ -46,11 +50,16 @@ const BackImg = styled.img`
 `;
 const Text = styled.div`
   margin-left: 30%;
+  @media (width>393px) {
+    margin-left: 113px;
+  }
 `;
 
 const HeaderBackground = styled.div`
+  position: fixed;
   width: 393px;
   height: 1px;
+  top: 63px;
   background: rgba(138, 136, 136, 0.38);
   box-shadow: 0px 2px 4px 0px rgba(0, 0, 0, 0.25);
 `;

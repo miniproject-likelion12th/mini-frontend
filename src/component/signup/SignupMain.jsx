@@ -1,8 +1,9 @@
 import React, { useState, useRef } from "react";
-import * as S from "./styled";
+import * as S from "./SignupMain_styled";
 import SignupInput from "./SignupInput";
 import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
+import SignupModal from "../signup/SignupModal";
 
 const SignupMain = () => {
   const [username, setUsername] = useState("");
@@ -19,17 +20,22 @@ const SignupMain = () => {
     email: false,
     emailInvalid: false,
     password: false,
+    passwordInvalid: false,
     passwordMatch: false,
   });
 
+  const [openModal, setOpenModal] = useState(false);
+
   const handleSignup = async () => {
     const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/; // 이메일 유효성 검사 정규식
+    const passwordRegex = /^(?=.*[a-zA-Z])(?=.*[0-9])(?=.*[!@#$%^&*]).{8,12}$/; // 비밀번호 유효성 검사 정규식
 
     const errors = {
       username: !username,
       email: !email,
-      emailInvalid: email && !emailRegex.test(email), // 이메일이 입력되어 있지만 형식에 맞지 않는 경우
+      emailInvalid: email && !emailRegex.test(email), // 이메일 형식 검사
       password: !password,
+      passwordInvalid: password && !passwordRegex.test(password), // 비밀번호 조건 검사
       passwordMatch: password !== password2,
     };
 
@@ -40,6 +46,9 @@ const SignupMain = () => {
     if (!hasErrors) {
       // 서버로 전송 로직 추가
       console.log("회원가입 성공:", { username, email, password, password2 });
+      // 회원가입 완료 모달 열기 -> 연동하면서는 회원가입 성공일 때 열기
+      setOpenModal(true);
+      console.log("모달 상태: ", openModal);
     }
 
     // const data = {
@@ -76,6 +85,7 @@ const SignupMain = () => {
 
   return (
     <>
+      {openModal ? <SignupModal /> : null}
       <S.SignupMain>
         <S.Text>
           안녕하세요 {":)"} <br />
@@ -147,13 +157,33 @@ const SignupMain = () => {
             onChange={(e) => setPassword(e.target.value)}
           />
           <S.ErrorContainer>
-            <ErrorMessage
-              text="비밀번호를 입력해주세요."
-              style={{
-                marginTop: "15px",
-                opacity: errorState.password ? 1 : 0,
-              }}
-            />
+            {errorState.password && (
+              <ErrorMessage
+                text="비밀번호를 입력해주세요."
+                style={{
+                  marginTop: "15px",
+                  opacity: 1,
+                }}
+              />
+            )}
+            {!errorState.password && errorState.passwordInvalid && (
+              <ErrorMessage
+                text="영문/숫자/특수문자를 포함한 8~12자리여야 합니다."
+                style={{
+                  marginTop: "15px",
+                  opacity: 1,
+                }}
+              />
+            )}
+            {!errorState.password && !errorState.passwordInvalid && (
+              <ErrorMessage
+                text="빈공간확보용"
+                style={{
+                  marginTop: "15px",
+                  opacity: 0,
+                }}
+              />
+            )}
           </S.ErrorContainer>
 
           {/* password2 */}
