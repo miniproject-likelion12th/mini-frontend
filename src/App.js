@@ -1,7 +1,10 @@
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
-import Home from "../src/Home";
-import Login from "../src/login/Login";
-import SignUp from "../src/sign-up/SignUp";
+import Home from "./Home";
+import Login from "./login/Login";
+import SignUp from "./sign-up/SignUp";
+import { createGlobalStyle } from "styled-components";
+import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
+import WriteDetail from "./write-list/write-detail/WriteDetail";
 
 const router = createBrowserRouter(
   [
@@ -17,6 +20,14 @@ const router = createBrowserRouter(
       path: "/signUp",
       element: <SignUp />,
     },
+    {
+      path: "/ChoosePeriod",
+      element: <ChoosePeriod />,
+    },
+    {
+      path: "/WriteDetail",
+      element: <WriteDetail />,
+    },
   ],
   {
     future: {
@@ -30,8 +41,43 @@ const router = createBrowserRouter(
   }
 );
 
+const GlobalStyle = createGlobalStyle`
+  @font-face {
+  font-family: 'YiSunShinDotumB'; /* 폰트 이름 */
+  src: url('/assets/fonts/YiSunShinDotumB.woff') format('woff'); /* 파일 경로와 형식 */
+  font-weight: normal; /* 가중치 설정 */
+  font-style: normal; /* 스타일 설정 */
+}
+
+@font-face {
+  font-family: 'YiSunShinDotumM';
+  src: url('/assets/fonts/YiSunShinDotumM.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'YiSunShinDotumL';
+  src: url('/assets/fonts/YiSunShinDotumL.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
+
+  body {
+    display: flex;
+    justify-content: center;
+    background-color: #FBFEFD;
+    font-family: 'YiSunShinDotumM', sans-serif;
+  }
+`;
+
 function App() {
-  return <RouterProvider router={router} />;
+  return (
+    <>
+      <GlobalStyle />
+      <RouterProvider router={router} />
+    </>
+  );
 }
 
 export default App;
