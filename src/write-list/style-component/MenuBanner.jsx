@@ -36,6 +36,7 @@ const Menu = styled(Wrapper)`
   height: 58px;
   cursor: pointer;
   color: #8a8888;
+  font-family: "YiSunShinDotumB";
   &.clicked {
     color: #6fbc89;
     border-color: #6fbc8961;

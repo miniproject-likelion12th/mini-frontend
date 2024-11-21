@@ -1,8 +1,12 @@
 import React from "react";
 import styled from "styled-components";
 
-const BottomButton = ({ text, display }) => {
-  return <Wrapper style={display ? null : { display: "none" }}>{text}</Wrapper>;
+const BottomButton = ({ text, display, onClick }) => {
+  return (
+    <Wrapper style={display ? null : { display: "none" }} onClick={onClick}>
+      {text}
+    </Wrapper>
+  );
 };
 
 export default BottomButton;
