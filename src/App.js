@@ -3,6 +3,9 @@ import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
+import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
+import WriteDetail from "./write-list/write-detail/WriteDetail";
+
 const router = createBrowserRouter(
   [
     {
@@ -16,6 +19,14 @@ const router = createBrowserRouter(
     {
       path: "/signUp",
       element: <SignUp />,
+    },
+    {
+      path: "/ChoosePeriod",
+      element: <ChoosePeriod />,
+    },
+    {
+      path: "/WriteDetail",
+      element: <WriteDetail />,
     },
   ],
   {
