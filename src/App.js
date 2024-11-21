@@ -3,6 +3,8 @@ import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
+import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
+import WriteDetail from "./write-list/write-detail/WriteDetail";
 
 const router = createBrowserRouter(
   [
@@ -17,6 +19,14 @@ const router = createBrowserRouter(
     {
       path: "/signUp",
       element: <SignUp />,
+    },
+    {
+      path: "/ChoosePeriod",
+      element: <ChoosePeriod />,
+    },
+    {
+      path: "/WriteDetail",
+      element: <WriteDetail />,
     },
   ],
   {
@@ -33,35 +43,31 @@ const router = createBrowserRouter(
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
-    font-family: 'YiSunShinDotumM';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumM.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+  font-family: 'YiSunShinDotumB'; /* 폰트 이름 */
+  src: url('/assets/fonts/YiSunShinDotumB.woff') format('woff'); /* 파일 경로와 형식 */
+  font-weight: normal; /* 가중치 설정 */
+  font-style: normal; /* 스타일 설정 */
+}
 
-  @font-face {
-    font-family: 'YiSunShinDotumB';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumB.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+@font-face {
+  font-family: 'YiSunShinDotumM';
+  src: url('/assets/fonts/YiSunShinDotumM.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
-  @font-face {
-    font-family: 'YiSunShinDotumL';
-    src: url('https://fastly.jsdelivr.net/gh/projectnoonnu/noonfonts_two@1.0/YiSunShinDotumL.woff') format('woff');
-    font-weight: normal;
-    font-style: normal;
-  }
+@font-face {
+  font-family: 'YiSunShinDotumL';
+  src: url('/assets/fonts/YiSunShinDotumL.woff') format('woff');
+  font-weight: normal;
+  font-style: normal;
+}
 
   body {
+    display: flex;
+    justify-content: center;
+    background-color: #FBFEFD;
     font-family: 'YiSunShinDotumM', sans-serif;
-    width: 100%;
-    height: 100vh;
-    margin-left: auto;
-    margin-right: auto;
-    @media (width > 393px){
-      width: 393px;
-    }
   }
 `;
 
