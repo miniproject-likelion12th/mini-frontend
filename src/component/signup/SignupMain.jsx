@@ -3,7 +3,7 @@ import * as S from "./SignupMain_styled";
 import SignupInput from "./SignupInput";
 import Button from "../common/Button";
 import ErrorMessage from "../common/ErrorMessage";
-import SignupModal from "../signup/SignupModal";
+import SignupModal from "../common/SignupModal";
 
 const SignupMain = () => {
   const [username, setUsername] = useState("");
