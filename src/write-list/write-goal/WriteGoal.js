@@ -29,7 +29,7 @@ const WriteGoal = ({ period, duration_years }) => {
           text="필수 입력 항목을 1개 이상 작성해주세요."
           display={showWaring}
         />
-        <BottomButton text="완료" display={true} />
+        <BottomButton text="완료" />
       </Container>
     </Wrapper>
   );

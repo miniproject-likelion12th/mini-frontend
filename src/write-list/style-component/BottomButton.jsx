@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const BottomButton = ({ text, display, onClick }) => {
+const BottomButton = ({ text, display = true, onClick }) => {
   return (
     <Wrapper style={display ? null : { display: "none" }} onClick={onClick}>
       {text}
