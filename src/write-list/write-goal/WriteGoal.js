@@ -13,25 +13,21 @@ const WriteGoal = ({ period, duration_years }) => {
   const [showWaring, setShowWaring] = useState(false);
 
   return (
-    <Wrapper>
-      <Banner />
-      <MenuBanner />
-      <Container>
-        <Ask>
-          <QuestionTitle text="버킷리스트 달성을 위한" />
-        </Ask>
-        <Ask>
-          <QuestionTitle text="구체적인 목표를 작성해볼까요?" />
-          <NoticeText text="* 1개 이상 필수 입력 항목입니다." />
-        </Ask>
-        <GoalList period={period} duration_years={duration_years} />
-        <WarningText
-          text="필수 입력 항목을 1개 이상 작성해주세요."
-          display={showWaring}
-        />
-        <BottomButton text="완료" />
-      </Container>
-    </Wrapper>
+    <Container>
+      <Ask>
+        <QuestionTitle text="버킷리스트 달성을 위한" />
+      </Ask>
+      <Ask>
+        <QuestionTitle text="구체적인 목표를 작성해볼까요?" />
+        <NoticeText text="* 1개 이상 필수 입력 항목입니다." />
+      </Ask>
+      <GoalList period={period} duration_years={duration_years} />
+      <WarningText
+        text="필수 입력 항목을 1개 이상 작성해주세요."
+        display={showWaring}
+      />
+      <BottomButton text="완료" />
+    </Container>
   );
 };
 
