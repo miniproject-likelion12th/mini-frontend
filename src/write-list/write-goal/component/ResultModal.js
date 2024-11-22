@@ -35,7 +35,7 @@ const Container = styled.div`
   top: 0;
   left: 0;
   right: 0;
-  bottom: 0;
+  bottom: -40px;
   z-index: 999; /* 다른 콘텐츠 위에 오도록 설정 */
 
   display: flex;

@@ -6,10 +6,15 @@ import { Ask } from "./WriteDetail";
 import styled from "styled-components";
 import WarningText from "../style-component/WarningText";
 import BottomButton from "../style-component/BottomButton";
+import { useLocation, useNavigate } from "react-router";
 
 const WriteYear = () => {
+  const navigate = useNavigate();
+  const location = useLocation();
   const [years, setYears] = useState("");
   const [warning, setWarning] = useState("");
+  const request = location.state.request;
+  console.log(request);
 
   const moveToNext = () => {
     if (!years) {
@@ -20,8 +25,9 @@ const WriteYear = () => {
       setWarning("형식이 올바르지 않습니다.");
       return;
     }
-    setWarning("");
-    // 페이지 전환
+
+    request["duration_years"] = years;
+    navigate("/WriteGoal", { state: { request } });
   };
 
   return (
