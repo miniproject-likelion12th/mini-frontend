@@ -6,6 +6,7 @@ import { createGlobalStyle } from "styled-components";
 import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
 import WriteDetail from "./write-list/write-detail/WriteDetail";
 import WriteGoal from "./write-list/write-goal/WriteGoal";
+import WriteYear from "./write-list/write-detail/WriteYear";
 
 const router = createBrowserRouter(
   [
@@ -28,6 +29,10 @@ const router = createBrowserRouter(
     {
       path: "/WriteDetail",
       element: <WriteDetail />,
+    },
+    {
+      path: "/WriteYear",
+      element: <WriteYear />,
     },
     {
       path: "/WriteGoal",

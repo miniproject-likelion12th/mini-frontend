@@ -77,7 +77,7 @@ const WriteDetail = () => {
         text="필수 입력 항목을 모두 작성해주세요."
         display={showWaring}
       />
-      <BottomButton text="다음" display={true} onClick={moveToNext} />
+      <BottomButton text="다음" onClick={moveToNext} />
     </Wrapper>
   );
 };
@@ -93,9 +93,10 @@ const QnA = styled.div`
   width: 100%;
 `;
 
-const Ask = styled.div`
+export const Ask = styled.div`
   width: 100%;
   display: flex;
+  justify-content: baseline;
   align-items: end;
   gap: 4px;
 `;
