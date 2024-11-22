@@ -26,6 +26,7 @@ const WriteDetail = () => {
     // post 요청 보낼 request 정리
     // 넘길 때 카테고리 영어로 바꿔서 전달
     // request 들고 navigate
+    navigate("/WriteGoal");
   };
 
   return (
