@@ -56,7 +56,10 @@ export const DeleteContainer_Login = styled.div`
   margin-top: 15px;
   margin-left: -25px;
 `;
-export const DeleteImg = styled.img``;
+export const DeleteImg = styled.img`
+  pointer-events: auto;
+  cursor: pointer;
+`;
 
 export const PasswordBox = styled.div`
   /* display: flex; */
@@ -77,8 +80,11 @@ export const EyeContainer = styled.div`
   position: relative;
   margin-left: 223px;
   transform: translateY(-150%);
+  width: 15px;
 `;
-export const EyeImg = styled.img``;
+export const EyeImg = styled.img`
+  cursor: pointer;
+`;
 export const DeleteContainer_Password = styled.div`
   margin-top: -45px;
   margin-left: 247px;

@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import Button from "../component/common/Button";
 import ErrorMessage from "../component/common/ErrorMessage";
 import deleteImg from "../assets/img/Login_delete.svg";
-import eye from "../assets/img/Login_eye_open.png";
+import eye from "../assets/img/Login_eye_open.svg";
 import eye_close from "../assets/img/Login_eye_close.svg";
 
 const Login = () => {

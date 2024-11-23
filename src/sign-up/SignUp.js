@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import SignupHeader from "./signup_component/SignupHeader";
-import SignupMain from "./signup_component/SignupMain";
+import SignupHeader from "./component/SignupHeader";
+import SignupMain from "./component/SignupMain";
 
 const SignUp = () => {
   return (
