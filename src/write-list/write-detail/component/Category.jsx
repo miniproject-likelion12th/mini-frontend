@@ -1,27 +1,25 @@
-import React, { useState } from "react";
+import React from "react";
 import styled from "styled-components";
 
-const Category = ({ text }) => {
-  const [clicked, setClicked] = useState(false);
-  const imgSrc = `/categoryImg${clicked ? "/green" : ""}/${text.slice(
+const Category = ({ text, selectedCategory, onChange }) => {
+  const checked = selectedCategory === text;
+  const imgSrc = `/categoryImg${checked ? "/green" : ""}/${text.slice(
     0,
     2
   )}.svg`;
 
   return (
-    <Wrapper
-      className={clicked ? "clicked" : ""}
-      onClick={() => setClicked((prev) => !prev)}
-    >
+    <Label className={checked ? "checked" : ""}>
       <Image src={imgSrc} />
-      <Text className={clicked ? "clicked" : ""}>{text}</Text>
-    </Wrapper>
+      <Input type="radio" value={text} checked={checked} onChange={onChange} />
+      {text}
+    </Label>
   );
 };
 
 export default Category;
 
-const Wrapper = styled.div`
+const Label = styled.label`
   width: fit-content;
   height: 22px;
   padding: 7px 10px;
@@ -34,18 +32,7 @@ const Wrapper = styled.div`
   gap: 3px;
   box-shadow: 0px 1px 2px 0px #00000040;
   cursor: pointer;
-
-  &.clicked {
-    border-color: #6fbc89;
-  }
-`;
-
-const Image = styled.img`
-  width: 22px;
-  height: 22px;
-`;
-
-const Text = styled.div`
+  font-family: "YiSunShinDotumB";
   font-size: 15px;
   font-weight: 400;
   line-height: 22px;
@@ -55,7 +42,17 @@ const Text = styled.div`
   text-decoration-skip-ink: none;
   color: #979797;
 
-  &.clicked {
+  &.checked {
+    border-color: #6fbc89;
     color: #6fbc89;
   }
+`;
+
+const Image = styled.img`
+  width: 22px;
+  height: 22px;
+`;
+
+const Input = styled.input`
+  display: none;
 `;

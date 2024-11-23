@@ -14,5 +14,6 @@ const Wrapper = styled.div`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  margin-bottom: 3px;
+  margin-bottom: 5px;
+  letter-spacing: -0.1px;
 `;

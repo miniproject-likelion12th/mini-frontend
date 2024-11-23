@@ -5,6 +5,9 @@ import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
 import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
 import WriteDetail from "./write-list/write-detail/WriteDetail";
+import WriteGoal from "./write-list/write-goal/WriteGoal";
+import WriteYear from "./write-list/write-detail/WriteYear";
+import PageTemplate from "./write-list/style-component/PageTemplate";
 
 const router = createBrowserRouter(
   [
@@ -22,11 +25,19 @@ const router = createBrowserRouter(
     },
     {
       path: "/ChoosePeriod",
-      element: <ChoosePeriod />,
+      element: <PageTemplate container={<ChoosePeriod />} />,
     },
     {
       path: "/WriteDetail",
-      element: <WriteDetail />,
+      element: <PageTemplate container={<WriteDetail />} />,
+    },
+    {
+      path: "/WriteYear",
+      element: <PageTemplate container={<WriteYear />} />,
+    },
+    {
+      path: "/WriteGoal",
+      element: <WriteGoal />,
     },
   ],
   {

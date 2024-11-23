@@ -1,21 +1,34 @@
-import React from "react";
-import styled from "styled-components";
-import Banner from "../style-component/Banner";
-import MenuBanner from "../style-component/MenuBanner";
-import { Container, Wrapper } from "../style-component/Wrapper";
+import React, { useState } from "react";
+import styled, { css } from "styled-components";
+import { Container } from "../style-component/Wrapper";
 import BottomButton from "../style-component/BottomButton";
 import { useNavigate } from "react-router";
 import CategoryList from "./component/CategoryList";
 import QuestionTitle from "../style-component/QuestionTitle";
 import NoticeText from "../style-component/NoticeText";
+import WarningText from "../style-component/WarningText";
 
 const WriteDetail = () => {
   const navigate = useNavigate();
+  const [bucketList, setBucketList] = useState("");
+  const [selectedCategory, setSelectedCategory] = useState("");
+  const [reason, setReason] = useState("");
+  const [showWaring, setShowWaring] = useState(false);
+
+  const moveToNext = () => {
+    if (!bucketList || !selectedCategory || !reason) {
+      setShowWaring(true);
+      return;
+    }
+
+    // post 요청 보낼 request 정리
+    // 넘길 때 카테고리 영어로 바꿔서 전달
+    // request 들고 navigate
+    navigate("/WriteGoal");
+  };
 
   return (
-    <Wrapper>
-      <Banner />
-      <MenuBanner />
+    <>
       <NewContainer>
         <QnA>
           <Ask>
@@ -25,26 +38,43 @@ const WriteDetail = () => {
           <Irume>
             <img src="banner/irume-input-deco.svg" />
           </Irume>
-          <Input type="text" />
+          <Input
+            type="text"
+            value={bucketList}
+            placeholder="버킷리스트를 작성해주세요."
+            onChange={(e) => setBucketList(e.target.value)}
+          />
         </QnA>
         <QnA>
           <Ask>
             <QuestionTitle text="버킷리스트의 카테고리를 정해주세요." />
+            <NoticeText />
           </Ask>
-          <CategoryList />
+          <CategoryList
+            selectedCategory={selectedCategory}
+            setSelectedCategory={setSelectedCategory}
+          />
         </QnA>
         <QnA>
           <Ask>
             <QuestionTitle text="버킷리스트가 된 계기는 무엇인가요?" />
           </Ask>
+          <Irume>
+            <img src="banner/irume-input-deco.svg" />
+          </Irume>
+          <TextArea
+            value={reason}
+            placeholder="버킷리스트가 된 계기를 작성해주세요."
+            onChange={(e) => setReason(e.target.value)}
+          />
         </QnA>
-        <BottomButton
-          text="작성 시작하기"
-          display={true}
-          onClick={() => navigate("/")}
-        />
       </NewContainer>
-    </Wrapper>
+      <WarningText
+        text="필수 입력 항목을 모두 작성해주세요."
+        display={showWaring}
+      />
+      <BottomButton text="다음" onClick={moveToNext} />
+    </>
   );
 };
 
@@ -52,25 +82,33 @@ export default WriteDetail;
 
 const NewContainer = styled(Container)`
   gap: 45px;
+  padding-bottom: 0px;
 `;
 
 const QnA = styled.div`
   width: 100%;
 `;
 
-const Ask = styled.div`
+export const Ask = styled.div`
   width: 100%;
   display: flex;
+  justify-content: baseline;
   align-items: end;
   gap: 4px;
 `;
 
-const Irume = styled.div``;
+const Irume = styled.div`
+  display: flex;
+  justify-content: end;
+  margin-top: 5px;
+  margin-bottom: -1px;
+  img {
+    width: 42px;
+    height: 14px;
+  }
+`;
 
-const Input = styled.input`
-  width: 100%;
-  height: 44px;
-  padding: 0;
+const sharedStyle = css`
   border-radius: 5px;
   border: 0.5px solid #6fbc89;
   background: #fff;
@@ -80,10 +118,31 @@ const Input = styled.input`
   font-style: normal;
   font-weight: 400;
   line-height: normal;
-  padding-inline-start: 9px;
   font-family: "YiSunShinDotumM";
+  &::placeholder {
+    color: #adadad;
+    font-size: 14px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: normal;
+  }
   &:focus {
     border-color: #6fbc89;
     outline: 0;
   }
+`;
+
+const Input = styled.input`
+  ${sharedStyle}
+  width: calc(100% - 18px);
+  height: 44px;
+  padding: 0px 9px;
+`;
+
+const TextArea = styled.textarea`
+  ${sharedStyle}
+  width: calc(100% - 18px);
+  height: 128px;
+  resize: none;
+  padding: 15px 9px;
 `;
