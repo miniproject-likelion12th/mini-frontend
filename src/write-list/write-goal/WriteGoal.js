@@ -83,5 +83,5 @@ const Ask = styled.div`
 
 const ButtonPosition = styled.div`
   position: absolute;
-  bottom: -40px; /* 화면 하단에 고정 */
+  bottom: -60px; /* 화면 하단에 고정 */
 `;

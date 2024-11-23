@@ -20,12 +20,8 @@ export const translateEng = (kor) =>
 // GoalList.js
 export const transformGoals = (period, inputs) => {
   if (period === shortTerm) {
-    const { month, value } = inputs[0]; // 첫 번째 항목의 month와 value를 사용
-    const contents = inputs.map((item) => item.value); // 모든 value를 contents로 변환
-    return { month, contents };
+    return inputs.map((item) => ({ month: item.month, contents: item.value })); // 모든 value를 contents로 변환
   } else {
-    const { year, value } = inputs[0]; // 첫 번째 항목의 year와 value를 사용
-    const contents = inputs.map((item) => item.value); // 모든 value를 contents로 변환
-    return { year, contents };
+    return inputs.map((item) => ({ year: item.year, contents: item.value })); // 모든 value를 contents로 변환
   }
 };

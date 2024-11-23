@@ -78,7 +78,7 @@ const DetailGoal = ({ period, month, year, setGoals, loading, setLoading }) => {
     const dataToSave = transformGoals(period, inputs);
     console.log("dataToSave", dataToSave);
 
-    setGoals((prev) => [...prev, dataToSave]);
+    setGoals((prev) => prev.concat(dataToSave));
     setLoading(false);
   }, [loading]);
 
