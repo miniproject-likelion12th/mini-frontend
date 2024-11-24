@@ -3,7 +3,6 @@ import {
   Navigate,
   RouterProvider,
 } from "react-router-dom";
-import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
@@ -13,13 +12,33 @@ import View from "./view/View";
 import WriteGoal from "./write-list/write-goal/WriteGoal";
 import WriteYear from "./write-list/write-detail/WriteYear";
 import PageTemplate from "./write-list/style-component/PageTemplate";
+import ProtectedRoute from "./component/common/ProtectedRoute";
+
+const protectedRoutes = [
+  {
+    path: "/ChoosePeriod",
+    element: <PageTemplate container={<ChoosePeriod />} />, // element로 JSX 컴포넌트 전달
+  },
+  {
+    path: "/WriteDetail",
+    element: <PageTemplate container={<WriteDetail />} />,
+  },
+  {
+    path: "/WriteYear",
+    element: <PageTemplate container={<WriteYear />} />,
+  },
+  {
+    path: "/WriteGoal",
+    element: <WriteGoal />,
+  },
+  {
+    path: "/view",
+    element: <View />,
+  },
+];
 
 const router = createBrowserRouter(
   [
-    {
-      path: "/",
-      element: <Home />,
-    },
     {
       path: "/login",
       element: <Login />,
@@ -28,26 +47,14 @@ const router = createBrowserRouter(
       path: "/signUp",
       element: <SignUp />,
     },
-    {
-      path: "/ChoosePeriod",
-      element: <PageTemplate container={<ChoosePeriod />} />,
-    },
-    {
-      path: "/WriteDetail",
-      element: <PageTemplate container={<WriteDetail />} />,
-    },
-    {
-      path: "/WriteYear",
-      element: <PageTemplate container={<WriteYear />} />,
-    },
-    {
-      path: "/WriteGoal",
-      element: <WriteGoal />,
-    },
-    { path: "/view", element: <View /> },
+    // ProtectedRoute를 적용한 라우트 동적으로 추가
+    ...protectedRoutes.map(({ path, element }) => ({
+      path,
+      element: <ProtectedRoute>{element}</ProtectedRoute>, // JSX 컴포넌트를 ProtectedRoute로 감싸기
+    })),
     {
       path: "*",
-      element: <Navigate to="/login" />,
+      element: <Navigate to="/login" replace />,
     },
   ],
   {
