@@ -5,6 +5,7 @@ import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
 import ChoosePeriod from "./write-list/choose-period/ChoosePeriod";
 import WriteDetail from "./write-list/write-detail/WriteDetail";
+import View from "./view/View";
 
 const router = createBrowserRouter(
   [
@@ -28,6 +29,7 @@ const router = createBrowserRouter(
       path: "/WriteDetail",
       element: <WriteDetail />,
     },
+    { path: "/view", element: <View /> },
   ],
   {
     future: {
@@ -68,6 +70,12 @@ const GlobalStyle = createGlobalStyle`
     justify-content: center;
     background-color: #FBFEFD;
     font-family: 'YiSunShinDotumM', sans-serif;
+      // 스크롤바 제거 css 모음
+  scrollbar-width: none; /* (Firefox) */
+  -ms-overflow-style: none; /* (IE 10+) */
+  &::-webkit-scrollbar {
+    display: none; /* (Chrome, Safari) */
+  }
   }
 `;
 
