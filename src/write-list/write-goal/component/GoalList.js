@@ -1,15 +1,33 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styled from "styled-components";
+import { shortTerm, transformGoals } from "../../definition/definition";
 
-const GoalList = ({ period, duration_years }) => {
+const GoalList = ({ request, setGoals, loading, setLoading }) => {
+  const period = request.period;
+  const duration_years = request.duration_years || 0;
+
   return (
     <Wrapper>
       {period === "short_term"
         ? Array.from({ length: 12 }, (_, idx) => (
-            <DetailGoal key={idx} period={`${idx + 1}개월`} />
+            <DetailGoal
+              key={idx}
+              period={period}
+              month={idx + 1}
+              setGoals={setGoals}
+              loading={loading}
+              setLoading={setLoading}
+            />
           ))
         : Array.from({ length: duration_years }, (_, idx) => (
-            <DetailGoal key={idx} period={`${idx + 1}년`} />
+            <DetailGoal
+              key={idx}
+              period={period}
+              year={idx + 1}
+              setGoals={setGoals}
+              loading={loading}
+              setLoading={setLoading}
+            />
           ))}
     </Wrapper>
   );
@@ -23,9 +41,13 @@ const Wrapper = styled.div`
   margin-top: 17px;
 `;
 
-const DetailGoal = ({ period }) => {
+const DetailGoal = ({ period, month, year, setGoals, loading, setLoading }) => {
   const [inputs, setInputs] = useState([]);
-  const defaultInput = { value: "", readOnly: false };
+  const when = period === shortTerm ? `${month}개월` : `${year}년`;
+  const defaultInput =
+    period === shortTerm
+      ? { month: month, value: "", readOnly: false }
+      : { year: year, value: "", readOnly: false };
 
   // 입력 필드 추가 함수
   const handleAddInput = () => setInputs([...inputs, defaultInput]);
@@ -51,10 +73,19 @@ const DetailGoal = ({ period }) => {
     setInputs(updatedInputs);
   };
 
+  useEffect(() => {
+    if (!inputs.length || !loading) return;
+    const dataToSave = transformGoals(period, inputs);
+    console.log("dataToSave", dataToSave);
+
+    setGoals((prev) => prev.concat(dataToSave));
+    setLoading(false);
+  }, [loading]);
+
   return (
     <Wrapper1>
       <Title>
-        {period}
+        {when}
         <AddGoal src="goal/add-goal.svg" onClick={handleAddInput} />
       </Title>
       {inputs?.map((input, idx) => (

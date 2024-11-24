@@ -23,7 +23,13 @@ const ChoosePeriod = () => {
       <BottomButton
         text="작성 시작하기"
         display={!!periodClicked}
-        onClick={() => navigate("/WriteDetail")}
+        onClick={() =>
+          navigate("/WriteDetail", {
+            state: {
+              period: periodClicked,
+            },
+          })
+        }
       />
     </Container>
   );

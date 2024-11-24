@@ -17,9 +17,8 @@ export default Loading;
 
 const Background = styled.div`
   position: absolute;
-  width: 100vw;
-  height: 100vh;
-  top: -150px;
+  width: 100%;
+  height: 100%;
   left: 0;
   background: #ffffffb7;
   z-index: 999;

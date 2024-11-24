@@ -1,4 +1,8 @@
-import { createBrowserRouter, RouterProvider } from "react-router-dom";
+import {
+  createBrowserRouter,
+  Navigate,
+  RouterProvider,
+} from "react-router-dom";
 import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
@@ -41,6 +45,10 @@ const router = createBrowserRouter(
       element: <WriteGoal />,
     },
     { path: "/view", element: <View /> },
+    {
+      path: "*",
+      element: <Navigate to="/login" />,
+    },
   ],
   {
     future: {

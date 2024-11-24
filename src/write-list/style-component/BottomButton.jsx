@@ -25,8 +25,5 @@ const Wrapper = styled.div`
   color: #6fbc89;
   font-family: "YiSunShinDotumB";
   font-size: 17px;
-  font-style: normal;
-  font-weight: 400;
-  line-height: normal;
   cursor: pointer;
 `;
