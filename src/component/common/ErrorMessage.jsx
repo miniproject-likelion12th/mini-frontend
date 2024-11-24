@@ -5,7 +5,7 @@ import styled from "styled-components";
 const ErrorMessage = ({ text, style }) => {
   return (
     <ErrorContainer style={style}>
-      <ErrorIconImg src={ErrorIcon} alt="에러 아이콘" />
+      {text && <ErrorIconImg src={ErrorIcon} alt="에러 아이콘" />}
       {text}
     </ErrorContainer>
   );

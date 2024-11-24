@@ -25,6 +25,11 @@ const Login = () => {
   const isLogin = Boolean(email && password);
 
   const handleLogin = async () => {
+    if (!isLogin) {
+      setErrorMessage("이메일 또는 비밀번호를 입력해주세요.");
+      return;
+    }
+
     const loginData = {
       email: email,
       password: password,
@@ -131,7 +136,7 @@ const Login = () => {
             </S.DeleteContainer_Password>
           </S.PasswordBox>
           <ErrorMessage
-            text={errorMessage || "이메일 또는 비밀번호를 입력해주세요."}
+            text={errorMessage}
             style={{
               marginTop: "15px",
               opacity: isLogin && !errorMessage ? 0 : 1,
@@ -144,7 +149,6 @@ const Login = () => {
           bgColor="#6FBC89"
           color="#fbfefd"
           onClick={handleLogin}
-          disabled={!isLogin}
           style={{ marginTop: "10px" }}
         />
 
