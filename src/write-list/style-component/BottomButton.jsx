@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const BottomButton = ({ text, display, onClick }) => {
+const BottomButton = ({ text, display = true, onClick }) => {
   return (
     <Wrapper style={display ? null : { display: "none" }} onClick={onClick}>
       {text}
@@ -23,6 +23,7 @@ const Wrapper = styled.div`
   justify-content: center;
   align-items: center;
   color: #6fbc89;
+  font-family: "YiSunShinDotumB";
   font-size: 17px;
   font-style: normal;
   font-weight: 400;
