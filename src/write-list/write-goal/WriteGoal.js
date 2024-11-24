@@ -10,6 +10,9 @@ import ResultModal from "./component/ResultModal";
 import Banner from "../style-component/Banner";
 import MenuBanner from "../style-component/MenuBanner";
 import { useLocation, useNavigate } from "react-router";
+import Cookies from "js-cookie";
+import apiCall from "../../api/Api";
+import Loading from "../../component/common/Loading";
 
 const WriteGoal = () => {
   const navigate = useNavigate();
@@ -19,46 +22,63 @@ const WriteGoal = () => {
   const [showWaring, setShowWaring] = useState(false);
   const [modalOpen, setModalOpen] = useState(false);
   const request = location.state.request;
-  useEffect(() => console.log("goals", JSON.stringify(goals)), [goals]);
+  const token = Cookies.get("access_token");
 
-  const CreateBucket = () => {
+  const CreateBucket = async () => {
+    if (!goals) {
+      setShowWaring(true);
+      return;
+    }
     setLoading(true);
-    // axios 연동
-    setModalOpen(true);
+
+    try {
+      const response = apiCall("bucketlist/", "POST", request, token);
+      setLoading(false);
+      setModalOpen(true);
+    } catch (e) {
+      console.log(e);
+    }
   };
 
+  useEffect(() => {
+    request["goals"] = goals;
+  }, [goals]);
+
   return (
-    <Wrapper>
-      <Banner />
-      <ModalPosition>
-        {modalOpen && <ResultModal />}
-        <MenuBanner />
-        <NewContainer>
-          <Ask>
-            <QuestionTitle text="버킷리스트 달성을 위한" />
-          </Ask>
-          <Ask>
-            <QuestionTitle text="구체적인 목표를 작성해볼까요?" />
-            <NoticeText text="* 1개 이상 필수 입력 항목입니다." />
-          </Ask>
+    <>
+      {loading ? <Loading /> : null}
+      <Wrapper>
+        <Banner />
+        <ModalPosition>
+          {modalOpen && <ResultModal />}
+          <MenuBanner />
+          <NewContainer>
+            <Ask>
+              <QuestionTitle text="버킷리스트 달성을 위한" />
+            </Ask>
+            <Ask>
+              <QuestionTitle text="구체적인 목표를 작성해볼까요?" />
+              <NoticeText text="* 1개 이상 필수 입력 항목입니다." />
+            </Ask>
 
-          <GoalList
-            request={request}
-            setGoals={setGoals}
-            loading={loading}
-            setLoading={setLoading}
-          />
+            <GoalList
+              request={request}
+              setGoals={setGoals}
+              loading={loading}
+              setLoading={setLoading}
+            />
 
-          <WarningText
-            text="필수 입력 항목을 1개 이상 작성해주세요."
-            display={showWaring}
-          />
-          <ButtonPosition>
-            <BottomButton text="완료" onClick={CreateBucket} />
-          </ButtonPosition>
-        </NewContainer>
-      </ModalPosition>
-    </Wrapper>
+            <WarningText
+              text="필수 입력 항목을 1개 이상 작성해주세요."
+              display={showWaring}
+            />
+            <ButtonPosition>
+              <BottomButton text="완료" onClick={CreateBucket} />
+            </ButtonPosition>
+          </NewContainer>
+        </ModalPosition>
+      </Wrapper>
+    </>
   );
 };
 
