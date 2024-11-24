@@ -49,7 +49,7 @@ const View = () => {
         <PeriodContiner>
           <PeriodBtn />
         </PeriodContiner>
-        <ViewCard
+        <Card
           title={title}
           category={category}
           motive={motive}

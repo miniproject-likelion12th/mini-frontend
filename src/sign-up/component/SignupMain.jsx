@@ -4,16 +4,18 @@ import SignupInput from "./SignupInput";
 import Button from "../../component/common/Button";
 import ErrorMessage from "../../component/common/ErrorMessage";
 import SignupModal from "../../component/common/SignupModal";
+import { useNavigate } from "react-router";
+import Cookies from "js-cookie";
+import apiCall from "../../api/Api";
+import Loading from "../../component/common/Loading";
 
 const SignupMain = () => {
   const [username, setUsername] = useState("");
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [password2, setPassword2] = useState("");
-
-  const [isDuplicate, setIsDuplicate] = useState(null);
   const [loading, setLoading] = useState(false);
-  const formRef = useRef(null);
+  const navigate = useNavigate();
 
   const [errorState, setErrorState] = useState({
     username: false,
@@ -44,48 +46,38 @@ const SignupMain = () => {
     // 모든 필드가 올바르게 입력되었는지 확인
     const hasErrors = Object.values(errors).some((err) => err);
     if (!hasErrors) {
-      // 서버로 전송 로직 추가
-      console.log("회원가입 성공:", { username, email, password, password2 });
-      // 회원가입 완료 모달 열기 -> 연동하면서는 회원가입 성공일 때 열기
-      setOpenModal(true);
-      console.log("모달 상태: ", openModal);
+      const data = {
+        username: username,
+        email: email,
+        password: password,
+        password2: password2,
+      };
+
+      try {
+        setLoading(true);
+        const response = await apiCall("users/signup/", "post", data, null);
+        if (response.data.message) {
+          setLoading(false);
+          console.log("회원가입 성공:", {
+            username,
+            email,
+            password,
+            password2,
+          });
+          // 회원가입 완료 모달 열기 -> 연동하면서는 회원가입 성공일 때 열기
+          setOpenModal(true);
+          console.log("모달 상태: ", openModal);
+        }
+      } catch (error) {
+        console.log("에러발생s", error);
+      }
     }
-
-    // const data = {
-    //     username: username,
-    //     email: email,
-    //     password: password,
-    //     password2: password2,
-    //   };
-
-    //     const Register = async () => {
-    //     if (formRef.current.checkValidity()) {
-    //       try {
-    //         setLoading(true);
-    //         const response = await apiCall("users/register/", "POST", data, null);
-    //         if (response.data.token) {
-    //           setLoading(false);
-    //           navigate("/");
-    //         } else if (response.data.errors.password) {
-    //           setLoading(false);
-    //           alert(response.data.errors.password[0]);
-    //         } else if (response.data.errors.username) {
-    //           setLoading(false);
-    //           setIsDuplicate("red");
-    //         } else if (response.data.errors.userid) {
-    //           console.log("실행됨?");
-    //           setLoading(false);
-    //           setIsDuplicate("red");
-    //         }
-    //       } catch (error) {
-    //         console.log("에러발생s", error);
-    //       }
-    //     }
   };
 
   return (
     <>
-      {openModal ? <SignupModal /> : null}
+      <div>{loading ? <Loading /> : null}</div>
+      {openModal ? <SignupModal name={username} /> : null}
       <S.SignupMain>
         <S.Text>
           안녕하세요 {":)"} <br />
