@@ -2,18 +2,21 @@ import React, { useState } from "react";
 import styled, { css } from "styled-components";
 import { Container } from "../style-component/Wrapper";
 import BottomButton from "../style-component/BottomButton";
-import { useNavigate } from "react-router";
+import { useLocation, useNavigate } from "react-router";
 import CategoryList from "./component/CategoryList";
 import QuestionTitle from "../style-component/QuestionTitle";
 import NoticeText from "../style-component/NoticeText";
 import WarningText from "../style-component/WarningText";
+import { shortTerm, translateEng } from "../definition/definition";
 
 const WriteDetail = () => {
   const navigate = useNavigate();
+  const location = useLocation();
   const [bucketList, setBucketList] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("");
   const [reason, setReason] = useState("");
   const [showWaring, setShowWaring] = useState(false);
+  const period = location.state.period;
 
   const moveToNext = () => {
     if (!bucketList || !selectedCategory || !reason) {
@@ -21,10 +24,15 @@ const WriteDetail = () => {
       return;
     }
 
-    // post 요청 보낼 request 정리
-    // 넘길 때 카테고리 영어로 바꿔서 전달
-    // request 들고 navigate
-    navigate("/WriteGoal");
+    const request = {
+      title: bucketList,
+      category: translateEng(selectedCategory),
+      motive: reason,
+      period: period,
+    };
+    const url = period === shortTerm ? "/WriteGoal" : "/WriteYear";
+
+    navigate(url, { state: { request } });
   };
 
   return (

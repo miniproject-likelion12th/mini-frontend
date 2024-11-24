@@ -1,19 +1,9 @@
 import React from "react";
 import Category from "./Category";
 import styled from "styled-components";
+import { categoryList } from "../../definition/definition";
 
 const CategoryList = ({ selectedCategory, setSelectedCategory }) => {
-  const categoryList = [
-    "여행",
-    "취미/문화",
-    "건강/운동",
-    "소비/저축/기부",
-    "자기계발",
-    "기타",
-    "커리어",
-    "가족/친구",
-  ];
-
   return (
     <Wrapper>
       {categoryList.map((category, key) => (
