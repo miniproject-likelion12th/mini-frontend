@@ -1,10 +1,10 @@
 import React from "react";
 import styled from "styled-components";
-import Button from "../common/Button";
+import Button from "./Button";
 import { useNavigate } from "react-router-dom";
 import SignupModal_logo from "../../assets/img/SignupModal_logo.svg";
 
-const SignupModal = () => {
+const SignupModal = ({ name }) => {
   const navigate = useNavigate();
 
   const goToLogin = () => {
@@ -16,7 +16,7 @@ const SignupModal = () => {
       <ModalBox>
         <Logo src={SignupModal_logo} />
         <MainText>회원가입이 완료되었습니다.</MainText>
-        <SubText>김사자님, 환영합니다!</SubText>
+        <SubText>{name}님, 환영합니다!</SubText>
         <ButtonContainer>
           <Button text="이루미 시작하기" onClick={goToLogin} />
         </ButtonContainer>
