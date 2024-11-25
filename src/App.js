@@ -1,9 +1,10 @@
+import React from "react";
 import {
-  createBrowserRouter,
+  HashRouter as Router,
+  Routes,
+  Route,
   Navigate,
-  RouterProvider,
 } from "react-router-dom";
-import Home from "./Home";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
 import { createGlobalStyle } from "styled-components";
@@ -13,54 +14,30 @@ import View from "./view/View";
 import WriteGoal from "./write-list/write-goal/WriteGoal";
 import WriteYear from "./write-list/write-detail/WriteYear";
 import PageTemplate from "./write-list/style-component/PageTemplate";
+import ProtectedRoute from "./component/common/ProtectedRoute";
 
-const router = createBrowserRouter(
-  [
-    {
-      path: "/",
-      element: <Home />,
-    },
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signUp",
-      element: <SignUp />,
-    },
-    {
-      path: "/ChoosePeriod",
-      element: <PageTemplate container={<ChoosePeriod />} />,
-    },
-    {
-      path: "/WriteDetail",
-      element: <PageTemplate container={<WriteDetail />} />,
-    },
-    {
-      path: "/WriteYear",
-      element: <PageTemplate container={<WriteYear />} />,
-    },
-    {
-      path: "/WriteGoal",
-      element: <WriteGoal />,
-    },
-    { path: "/view", element: <View /> },
-    {
-      path: "*",
-      element: <Navigate to="/login" />,
-    },
-  ],
+const protectedRoutes = [
   {
-    future: {
-      v7_startTransition: true,
-      v7_relativeSplatPath: true,
-      v7_fetcherPersist: true,
-      v7_normalizeFormMethod: true,
-      v7_partialHydration: true,
-      v7_skipActionErrorRevalidation: true,
-    },
-  }
-);
+    path: "/ChoosePeriod",
+    element: <PageTemplate container={<ChoosePeriod />} />, // element로 JSX 컴포넌트 전달
+  },
+  {
+    path: "/WriteDetail",
+    element: <PageTemplate container={<WriteDetail />} />,
+  },
+  {
+    path: "/WriteYear",
+    element: <PageTemplate container={<WriteYear />} />,
+  },
+  {
+    path: "/WriteGoal",
+    element: <WriteGoal />,
+  },
+  {
+    path: "/view",
+    element: <View />,
+  },
+];
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -98,13 +75,28 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+const App = () => {
   return (
     <>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          {/* ProtectedRoute를 적용한 라우트 동적으로 추가 */}
+          {protectedRoutes.map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={<ProtectedRoute>{element}</ProtectedRoute>}
+            />
+          ))}
+          {/* 기본적으로 모든 라우트가 /login으로 리디렉션 */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
     </>
   );
-}
+};
 
 export default App;
