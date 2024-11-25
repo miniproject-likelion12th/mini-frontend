@@ -1,7 +1,9 @@
+import React from "react";
 import {
-  createBrowserRouter,
+  HashRouter as Router,
+  Routes,
+  Route,
   Navigate,
-  RouterProvider,
 } from "react-router-dom";
 import Login from "./login/Login";
 import SignUp from "./sign-up/SignUp";
@@ -36,38 +38,6 @@ const protectedRoutes = [
     element: <View />,
   },
 ];
-
-const router = createBrowserRouter(
-  [
-    {
-      path: "/login",
-      element: <Login />,
-    },
-    {
-      path: "/signUp",
-      element: <SignUp />,
-    },
-    // ProtectedRoute를 적용한 라우트 동적으로 추가
-    ...protectedRoutes.map(({ path, element }) => ({
-      path,
-      element: <ProtectedRoute>{element}</ProtectedRoute>, // JSX 컴포넌트를 ProtectedRoute로 감싸기
-    })),
-    {
-      path: "*",
-      element: <Navigate to="/login" replace />,
-    },
-  ],
-  {
-    future: {
-      v7_startTransition: true,
-      v7_relativeSplatPath: true,
-      v7_fetcherPersist: true,
-      v7_normalizeFormMethod: true,
-      v7_partialHydration: true,
-      v7_skipActionErrorRevalidation: true,
-    },
-  }
-);
 
 const GlobalStyle = createGlobalStyle`
   @font-face {
@@ -105,13 +75,28 @@ const GlobalStyle = createGlobalStyle`
   }
 `;
 
-function App() {
+const App = () => {
   return (
     <>
       <GlobalStyle />
-      <RouterProvider router={router} />
+      <Router>
+        <Routes>
+          <Route path="/login" element={<Login />} />
+          <Route path="/signUp" element={<SignUp />} />
+          {/* ProtectedRoute를 적용한 라우트 동적으로 추가 */}
+          {protectedRoutes.map(({ path, element }) => (
+            <Route
+              key={path}
+              path={path}
+              element={<ProtectedRoute>{element}</ProtectedRoute>}
+            />
+          ))}
+          {/* 기본적으로 모든 라우트가 /login으로 리디렉션 */}
+          <Route path="*" element={<Navigate to="/login" replace />} />
+        </Routes>
+      </Router>
     </>
   );
-}
+};
 
 export default App;
