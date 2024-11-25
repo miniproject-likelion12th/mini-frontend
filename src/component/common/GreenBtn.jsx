@@ -1,7 +1,7 @@
 import React from "react";
 import styled from "styled-components";
 
-const GreenBtn = (iconSrc, text) => {
+const GreenBtn = ({ iconSrc, text }) => {
   return (
     <Button>
       {iconSrc && <Icon src={iconSrc} alt="" />}
@@ -13,7 +13,7 @@ const GreenBtn = (iconSrc, text) => {
 export default GreenBtn;
 
 const Button = styled.div`
-  display: flex;
+  display: inline-flex;
   padding: 2px 6px;
   justify-content: center;
   align-items: center;
