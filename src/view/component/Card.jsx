@@ -20,6 +20,9 @@ import ViewSend from "../../assets/img/ViewSend.svg";
 
 import AchiveImg from "../../assets/img/AchiveImg.svg";
 import NonAchiveImg from "../../assets/img/NonAchiveImg.svg";
+import { useNavigate } from "react-router";
+import ViewDeleteModal from "../../component/common/ViewDeleteModal";
+import ViewAchiveModal from "../../component/common/ViewAchiveModal";
 
 const categoryImg = (category) => {
   const categories = {
@@ -58,7 +61,16 @@ const translatePeriod = (period) => {
   return periodMap[period] || "전체";
 };
 
-const Card = ({ title, category, motive, period, is_achieved, goals = [] }) => {
+const Card = ({
+  id,
+  title,
+  category,
+  motive,
+  period,
+  is_achieved,
+  goals = [],
+}) => {
+  const navigate = useNavigate();
   const [goalState, setGoalState] = useState(goals);
   const [editGoalId, setEditGoalId] = useState(null); // 수정 중인 목표 ID
   const [currentEditContent, setCurrentEditContent] = useState(""); // 수정 중인 목표 내용
@@ -69,6 +81,8 @@ const Card = ({ title, category, motive, period, is_achieved, goals = [] }) => {
     }, {})
   );
   const [newContent, setNewContent] = useState("");
+  const [deleteModalOpen, setDeleteModalOpen] = useState(false);
+  const [achieveModalOpen, setAchieveModalOpen] = useState(false);
 
   const handleCheck = (goalId) => {
     setIsDoneState((prev) => ({
@@ -103,100 +117,114 @@ const Card = ({ title, category, motive, period, is_achieved, goals = [] }) => {
     : {};
 
   return (
-    <CardContainer>
-      <CardHeader>
-        <Title>{title}</Title>
-        <HashtagContainer>
-          <GreenBtn
-            iconSrc={categoryImg(category)}
-            text={translateCategory(category)}
-          />
-          <GreenBtn text={translatePeriod(period)} />
-          <GreenBtn text={is_achieved ? "달성" : "진행중"} />
-        </HashtagContainer>
-      </CardHeader>
-      <LineDiv />
-      <CardContent>
-        <Motive>
-          <MotiveTitle>버킷리스트가 된 계기</MotiveTitle>
-          <MotiveImg src={View_MotiveImg} />
-          <MotiveBox>{motive}</MotiveBox>
-        </Motive>
-        <Goals>
-          <GoalTitle>구체적인 목표</GoalTitle>
-          {Object.entries(groupedGoals).length > 0 ? (
-            Object.entries(groupedGoals).map(([key, goalArray]) => (
-              <GoalContainer key={key}>
-                <GreenBtn text={key} />
-                {goalArray.map((goal) => (
-                  <EachGoal key={goal.id}>
-                    <GoalTextContianer>
-                      <CheckImg
-                        src={
-                          isDoneState[goal.id] ? ViewChecked : ViewNonChecked
-                        }
-                        onClick={() => handleCheck(goal.id)}
-                      />
-                      <GoalText>{goal.content}</GoalText>
-                      <GoalEditImg
-                        src={ViewEdit}
-                        onClick={() => {
-                          setEditGoalId(goal.id);
-                          setCurrentEditContent(goal.content); // 수정 시작 시 현재 내용 설정
-                        }}
-                      />
-                      <GoalDeleteImg src={ViewDelete} />
-                    </GoalTextContianer>
-
-                    {editGoalId === goal.id && (
-                      <GoalInputContianer>
+    <>
+      {deleteModalOpen && <ViewDeleteModal title={title} id={id} />}
+      {achieveModalOpen && <ViewAchiveModal title={title} id={id} />}
+      <CardContainer>
+        <CardHeader>
+          <Title>{title}</Title>
+          <HashtagContainer>
+            <GreenBtn
+              iconSrc={categoryImg(category)}
+              text={translateCategory(category)}
+            />
+            <GreenBtn text={translatePeriod(period)} />
+            <GreenBtn text={is_achieved ? "달성" : "진행중"} />
+            <CardEditImg
+              src={ViewEdit}
+              onClick={() => navigate("/ChoosePeriod")}
+            />
+            <CardDeleteImg
+              src={ViewDelete}
+              onClick={() => setDeleteModalOpen(true)}
+            />
+          </HashtagContainer>
+        </CardHeader>
+        <LineDiv />
+        <CardContent>
+          <Motive>
+            <MotiveTitle>버킷리스트가 된 계기</MotiveTitle>
+            <MotiveImg src={View_MotiveImg} />
+            <MotiveBox>{motive}</MotiveBox>
+          </Motive>
+          <Goals>
+            <GoalTitle>구체적인 목표</GoalTitle>
+            {Object.entries(groupedGoals).length > 0 ? (
+              Object.entries(groupedGoals).map(([key, goalArray]) => (
+                <GoalContainer key={key}>
+                  <GreenBtn text={key} />
+                  {goalArray.map((goal) => (
+                    <EachGoal key={goal.id}>
+                      <GoalTextContianer>
                         <CheckImg
                           src={
                             isDoneState[goal.id] ? ViewChecked : ViewNonChecked
                           }
                           onClick={() => handleCheck(goal.id)}
                         />
-                        <EditInput
-                          type="text"
-                          value={newContent}
-                          onChange={(e) => setNewContent(e.target.value)}
-                        />
-                        <GoalSendImg
-                          src={ViewSend}
+                        <GoalText>{goal.content}</GoalText>
+                        <GoalEditImg
+                          src={ViewEdit}
                           onClick={() => {
-                            handleEdit(goal.id);
-                            console.log("수정(추가) : ", goal.id); // 연동 후 console 정리
+                            setEditGoalId(goal.id);
+                            setCurrentEditContent(goal.content); // 수정 시작 시 현재 내용 설정
                           }}
                         />
                         <GoalDeleteImg src={ViewDelete} />
-                      </GoalInputContianer>
-                    )}
-                  </EachGoal>
-                ))}
-              </GoalContainer>
-            ))
+                      </GoalTextContianer>
+
+                      {editGoalId === goal.id && (
+                        <GoalInputContianer>
+                          <CheckImg
+                            src={
+                              isDoneState[goal.id]
+                                ? ViewChecked
+                                : ViewNonChecked
+                            }
+                            onClick={() => handleCheck(goal.id)}
+                          />
+                          <EditInput
+                            type="text"
+                            value={newContent}
+                            onChange={(e) => setNewContent(e.target.value)}
+                          />
+                          <GoalSendImg
+                            src={ViewSend}
+                            onClick={() => {
+                              handleEdit(goal.id);
+                              console.log("수정(추가) : ", goal.id); // 연동 후 console 정리
+                            }}
+                          />
+                          <GoalDeleteImg src={ViewDelete} />
+                        </GoalInputContianer>
+                      )}
+                    </EachGoal>
+                  ))}
+                </GoalContainer>
+              ))
+            ) : (
+              <NoGoalsMessage>목표가 없습니다.</NoGoalsMessage>
+            )}
+          </Goals>
+        </CardContent>
+        <GreenLine />
+        <AchieveContainer>
+          {is_achieved ? (
+            <NonAchieveBtn onClick={() => {}}>
+              <AchieveImg src={AchiveImg} />
+              <AchieveText style={{ color: "#6FBC89" }}>달성 완료</AchieveText>
+            </NonAchieveBtn>
           ) : (
-            <NoGoalsMessage>목표가 없습니다.</NoGoalsMessage>
+            <AchieveBtn onClick={() => setAchieveModalOpen(true)}>
+              <AchieveImg src={NonAchiveImg} />
+              <AchieveText style={{ color: "#979797" }}>
+                버킷리스트 달성
+              </AchieveText>
+            </AchieveBtn>
           )}
-        </Goals>
-      </CardContent>
-      <GreenLine />
-      <AchieveContainer>
-        {is_achieved ? (
-          <NonAchieveBtn onClick={() => {}}>
-            <AchieveImg src={AchiveImg} />
-            <AchieveText style={{ color: "#6FBC89" }}>달성 완료</AchieveText>
-          </NonAchieveBtn>
-        ) : (
-          <AchieveBtn>
-            <AchieveImg src={NonAchiveImg} />
-            <AchieveText style={{ color: "#979797" }}>
-              버킷리스트 달성
-            </AchieveText>
-          </AchieveBtn>
-        )}
-      </AchieveContainer>
-    </CardContainer>
+        </AchieveContainer>
+      </CardContainer>
+    </>
   );
 };
 
@@ -239,6 +267,23 @@ const Title = styled.div`
 const HashtagContainer = styled.div`
   display: flex;
   gap: 4px;
+`;
+
+const CardEditImg = styled.img`
+  margin-top: 5px;
+  margin-left: 104px;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  cursor: pointer;
+`;
+const CardDeleteImg = styled.img`
+  margin-top: 5px;
+  margin-left: 3px;
+  width: 17px;
+  height: 17px;
+  flex-shrink: 0;
+  cursor: pointer;
 `;
 const LineDiv = styled.div`
   margin-top: 15px;

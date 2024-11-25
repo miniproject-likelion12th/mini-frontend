@@ -30,6 +30,12 @@ const View = () => {
   const [hoverIndex, setHoverIndex] = useState(null); // hover 상태 관리
   const [selectedPeriod, setSelectedPeriod] = useState("전체");
 
+  // 스와이프 이벤트 처리
+  const [currentIndex, setCurrentIndex] = useState(0); // 현재 카드 인덱스
+  const [startX, setStartX] = useState(null); // 터치 시작 위치 저장
+  const [isSwiping, setIsSwiping] = useState(false); // 스와이프 중 여부
+
+  // map에 필요한 배열
   const periods = ["전체", "단기", "장기", "달성"];
   const texts = [
     "전체",
@@ -82,37 +88,132 @@ const View = () => {
   };
 
   // 예시 데이터
-  const title = "건강한 삶";
-  const category = "health_exercise";
-  const motive = "건강을 유지하고 체력을 기르기";
-  const period = "short_term";
-  const is_achieved = false;
-  const goals = [
+  const data = [
     {
-      id: 3,
-      year: null,
-      month: 1,
-      content: "헬스장 3개월 등록하기",
-      is_done: false,
+      id: 1,
+      title: "건강한 삶",
+      category: "health_exercise",
+      motive: "건강을 유지하고 체력을 기르기",
+      period: "short_term",
+      duration_years: null,
+      is_achieved: false,
+      goals: [
+        {
+          id: 1,
+          year: null,
+          month: 1,
+          content: "헬스장 3개월 등록하기",
+          is_done: false,
+        },
+        {
+          id: 2,
+          year: null,
+          month: 4,
+          content: "유산소 운동 30분 하기",
+          is_done: false,
+        },
+      ],
     },
     {
-      id: 4,
-      year: null,
-      month: 4,
-      content: "유산소 운동 30분 하기",
-      is_done: false,
-    },
-    {
-      id: 5,
-      year: null,
-      month: 9,
-      content: "주 3회 운동하기",
-      is_done: false,
+      id: 2,
+      title: "도쿄 여행",
+      category: "travel",
+      motive: "가서 맛있는 라멘 먹고싶다!!!!",
+      period: "short_term",
+      duration_years: 3,
+      is_achieved: false,
+      goals: [
+        {
+          id: 3,
+          year: 1,
+          month: null,
+          content: "도쿄 맛집 정보 조사하기",
+          is_done: false,
+        },
+        {
+          id: 4,
+          year: 3,
+          month: null,
+          content: "도쿄로 출발하기",
+          is_done: false,
+        },
+      ],
     },
   ];
 
+  // 모바일에서 스와이프
+  const handleTouchStart = (e) => {
+    setStartX(e.touches[0].clientX);
+    setIsSwiping(true);
+  };
+
+  const handleTouchMove = (e) => {
+    if (!isSwiping) return;
+    const touchX = e.touches[0].clientX;
+    const diff = touchX - startX;
+
+    // 스와이프 방향 결정
+    if (diff > 50) {
+      handlePrev();
+      setIsSwiping(false);
+    } else if (diff < -50) {
+      handleNext();
+      setIsSwiping(false);
+    }
+  };
+
+  const handleTouchEnd = () => {
+    setIsSwiping(false);
+  };
+
+  const handleNext = () => {
+    if (currentIndex < data.length - 1) {
+      setCurrentIndex(currentIndex + 1);
+    }
+  };
+
+  const handlePrev = () => {
+    if (currentIndex > 0) {
+      setCurrentIndex(currentIndex - 1);
+    }
+  };
+
+  // 노트북에서 (마우스) 스와이프
+  const handleMouseDown = (e) => {
+    setStartX(e.clientX);
+    setIsSwiping(true);
+  };
+
+  const handleMouseMove = (e) => {
+    if (!isSwiping) return;
+    const diff = e.clientX - startX;
+
+    if (diff > 50) {
+      handlePrev();
+      setIsSwiping(false);
+    } else if (diff < -50) {
+      handleNext();
+      setIsSwiping(false);
+    }
+  };
+
+  const handleMouseUp = () => {
+    setIsSwiping(false);
+  };
+
+  const currentCard = data[currentIndex];
+
   return (
-    <S.Wrapper>
+    <S.Wrapper
+      // 모바일
+      onTouchStart={handleTouchStart}
+      onTouchMove={handleTouchMove}
+      onTouchEnd={handleTouchEnd}
+      // 마우스
+      onMouseDown={handleMouseDown}
+      onMouseMove={handleMouseMove}
+      onMouseUp={handleMouseUp}
+    >
       <Banner />
       <MenuBanner />
       <S.Container>
@@ -149,14 +250,26 @@ const View = () => {
             />
           ))}
         </S.PeriodContainer>
-        <Card
-          title={title}
-          category={category}
-          motive={motive}
-          period={period}
-          is_achieved={is_achieved}
-          goals={goals}
-        />
+        <S.CardContainer>
+          {currentIndex > 0 && (
+            <S.LeftArrow onClick={handlePrev}>
+              <span>{"<"}</span>
+            </S.LeftArrow>
+          )}
+          <Card
+            title={currentCard.title}
+            category={currentCard.category}
+            motive={currentCard.motive}
+            period={currentCard.period}
+            is_achieved={currentCard.is_achieved}
+            goals={currentCard.goals}
+          />
+          {currentIndex < data.length - 1 && (
+            <S.RightArrow onClick={handleNext}>
+              <span>{">"}</span>
+            </S.RightArrow>
+          )}
+        </S.CardContainer>
       </S.Container>
     </S.Wrapper>
   );
