@@ -65,8 +65,8 @@ const Login = () => {
         // Step 3: 토큰 저장
         Cookies.set("access_token", accessToken, {
           path: "/",
-          secure: true,
-          sameSite: "None",
+          secure: false,
+          SameSite: "Strict",
         });
 
         setLoading(false);
