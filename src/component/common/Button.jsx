@@ -37,10 +37,3 @@ const CommonButton = styled.button`
   margin: 0 auto;
   cursor: pointer;
 `;
-
-const ButtonText = styled.p`
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-`;

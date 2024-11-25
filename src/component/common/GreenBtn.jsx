@@ -3,18 +3,15 @@ import styled from "styled-components";
 
 const GreenBtn = (iconSrc, text) => {
   return (
-    <Container>
-      <Button>
-        <Icon src={iconSrc} alt={"icon"} />
-        <Text>{text}</Text>
-      </Button>
-    </Container>
+    <Button>
+      {iconSrc && <Icon src={iconSrc} alt="" />}
+      <Text>{text}</Text>
+    </Button>
   );
 };
 
 export default GreenBtn;
 
-const Container = styled.div``;
 const Button = styled.div`
   display: flex;
   padding: 2px 6px;
