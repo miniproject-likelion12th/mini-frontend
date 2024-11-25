@@ -11,10 +11,36 @@ export const Wrapper = styled.div`
 
 export const Container = styled.div`
   height: 100%;
+  width: 340px; /* Card의 너비 */
   display: flex;
   flex-direction: column;
   align-items: center;
   padding: 25px;
+  // transition: transform 0.3s ease-in-out;
+`;
+
+export const CardContainer = styled.div`
+  width: 100%;
+  height: 100%;
+`;
+export const LeftArrow = styled.div`
+  position: absolute;
+  margin-left: -15px;
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #6fbc89;
+`;
+
+export const RightArrow = styled.div`
+  position: absolute;
+  margin-left: 350px; /* Card 오른쪽에 위치 */
+  top: 70%;
+  transform: translateY(-50%);
+  cursor: pointer;
+  font-size: 15px;
+  color: #6fbc89;
 `;
 
 export const CategoryContainer = styled.div`
