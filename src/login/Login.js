@@ -70,7 +70,7 @@ const Login = () => {
         });
 
         setLoading(false);
-        navigate("/ChoosePeriod"); // 로그인 성공 후 이동
+        navigate("/view"); // 로그인 성공 후 이동
       }
     } catch (error) {
       setLoading(false);
