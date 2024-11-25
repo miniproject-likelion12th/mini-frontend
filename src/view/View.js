@@ -4,6 +4,8 @@ import Banner from "./component/Banner";
 import MenuBanner from "./component/MenuBanner";
 import CategoryBtn from "./component/CategoryBtn";
 import PeriodBtn from "./component/PeriodBtn";
+import Card from "./component/Card";
+
 import AllIcon from "../assets/img/View_Category_Icon/View_all.svg";
 import TravelIcon from "../assets/img/View_Category_Icon/View_travel.svg";
 import HobbyIcon from "../assets/img/View_Category_Icon/View_hobby_culture.svg";
@@ -147,14 +149,14 @@ const View = () => {
             />
           ))}
         </S.PeriodContainer>
-        {/* <S.Card
+        <Card
           title={title}
           category={category}
           motive={motive}
           period={period}
           is_achieved={is_achieved}
           goals={goals}
-        /> */}
+        />
       </S.Container>
     </S.Wrapper>
   );

@@ -37,7 +37,7 @@ export const Categories = styled.div`
   overflow-x: auto;
   gap: 8px;
   width: 100%;
-  padding: 10px 20px;
+  padding: 10px 25px;
 
   // 스크롤바 제거 css
   scrollbar-width: none; /* (Firefox) */
@@ -50,7 +50,7 @@ export const Categories = styled.div`
     content: "";
     position: absolute;
     top: 0;
-    width: 35px;
+    width: 40px;
     height: 100%;
     background: #fff;
     filter: blur(2.5px);
@@ -71,5 +71,5 @@ export const PeriodContainer = styled.div`
   justify-content: flex-start; /* 왼쪽 정렬 */
   width: 100%; /* 부모 요소의 전체 너비를 사용 */
   padding-left: 50px; /* 왼쪽 여백 추가 */
-  margin-top: 15px; /* 상단 여백 */
+  margin-top: 10px; /* 상단 여백 */
 `;

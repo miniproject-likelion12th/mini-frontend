@@ -34,20 +34,24 @@ const CategoryButton = styled.button.withConfig({
   shouldForwardProp: (prop) => !["bgColor", "color"].includes(prop),
 })`
   display: flex;
-  height: 36px;
+  padding: 7px 10px;
   align-items: center;
   justify-content: center;
-  gap: 5px;
+  gap: 3px;
   background-color: ${(props) => props.bgColor};
   color: ${(props) => props.color};
   border: 1px solid #6fbc89;
-  border-radius: 30px;
-  padding: 5px 15px;
-  font-size: 14px;
+  border-radius: 15px;
+  font-size: 15px;
+  font-weight: 400;
+  line-height: 22px; /* 146.667% */
+  letter-spacing: -0.408px;
+
   cursor: pointer;
   transition: all 0.3s;
   white-space: nowrap;
   flex-shrink: 0;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 
   &:hover {
     background-color: #6fbc89;
