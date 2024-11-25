@@ -1,14 +1,15 @@
 import React, { useState } from "react";
 import styled from "styled-components";
-import AllIcon from "../../assets/img/View_all.svg";
-import TravelIcon from "../../assets/img/View_travel.svg";
-import HobbyIcon from "../../assets/img/View_hobby_culture.svg";
-import HealthIcon from "../../assets/img/View_health_exercise.svg";
-import SpendingIcon from "../../assets/img/View_spending_saving_donating.svg";
-import SelfIcon from "../../assets/img/View_self_development.svg";
-import OthersIcon from "../../assets/img/View_others.svg";
-import CareerIcon from "../../assets/img/View_career.svg";
-import FamilyIcon from "../../assets/img/View_family_friends.svg";
+import AllIcon from "../../assets/img/View_Category_Icon/View_all.svg";
+import TravelIcon from "../../assets/img/View_Category_Icon/View_travel.svg";
+import HobbyIcon from "../../assets/img/View_Category_Icon/View_hobby_culture.svg";
+import HealthIcon from "../../assets/img/View_Category_Icon/View_health_exercise.svg";
+import SpendingIcon from "../../assets/img/View_Category_Icon/View_spending_saving_donating.svg";
+import SelfIcon from "../../assets/img/View_Category_Icon/View_self_development.svg";
+import OthersIcon from "../../assets/img/View_Category_Icon/View_others.svg";
+import CareerIcon from "../../assets/img/View_Category_Icon/View_career.svg";
+import FamilyIcon from "../../assets/img/View_Category_Icon/View_family_friends.svg";
+
 import GreenBtn from "../../component/common/GreenBtn";
 import View_MotiveImg from "../../assets/img/View_MotiveImg.svg";
 import ViewChecked from "../../assets/img/ViewChecked.svg";
@@ -29,33 +30,26 @@ const categoryImg = (category) => {
   return categories[category] || AllIcon;
 };
 
-const ViewCard = ({
-  title,
-  category,
-  motive,
-  period,
-  is_achieved,
-  goals = [],
-}) => {
-  const [goalState, setGoalState] = useState(goals);
+const Card = ({ title, category, motive, period, is_achieved, goals = [] }) => {
+  // const [goalState, setGoalState] = useState(goals);
 
-  const handleCheck = (goalId) => {
-    setGoalState((prevGoals) =>
-      prevGoals.map((goal) =>
-        goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
-      )
-    );
-  };
+  // const handleCheck = (goalId) => {
+  //   setGoalState((prevGoals) =>
+  //     prevGoals.map((goal) =>
+  //       goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
+  //     )
+  //   );
+  // };
 
-  // goals를 month 또는 year 별로 그룹화
-  const groupedGoals = goalState.reduce((acc, goal) => {
-    const key = goal.month ? `${goal.month}개월` : `${goal.year}년`;
-    if (!acc[key]) {
-      acc[key] = [];
-    }
-    acc[key].push(goal);
-    return acc;
-  }, {});
+  // // 그룹화 로직
+  // const groupedGoals = goals.length
+  //   ? goals.reduce((acc, goal) => {
+  //       const key = goal.month ? `${goal.month}개월` : `${goal.year}년`;
+  //       if (!acc[key]) acc[key] = [];
+  //       acc[key].push(goal);
+  //       return acc;
+  //     }, {})
+  //   : {};
 
   return (
     <CardContainer>
@@ -76,28 +70,46 @@ const ViewCard = ({
         </Motive>
         <Goals>
           <GoalTitle>구체적인 목표</GoalTitle>
-          {Object.entries(groupedGoals).map(([key, goalArray]) => (
-            <GoalContainer key={key}>
-              <GreenBtn text={key} />
-              {goalArray.map((goal) => (
-                <EachGoal key={goal.id}>
-                  <CheckImg
-                    src={goal.is_done ? ViewChecked : ViewNonChecked}
-                    onClick={() => handleCheck(goal.id)}
-                  />
-                  <GoalText>{goal.content}</GoalText>
-                  <GoalEditImg src={ViewEdit} />
-                </EachGoal>
-              ))}
-            </GoalContainer>
-          ))}
+          {/* {Object.entries(groupedGoals).length > 0 ? (
+            Object.entries(groupedGoals).map(([key, goalArray]) => (
+              <GoalContainer key={key}>
+                <GreenBtn text={key} />
+                {goalArray.map(
+                  (goal) => (
+                    console.log("goals:", goal),
+                    (
+                      <EachGoal key={goal.id}>
+                        <CheckImg
+                          src={goal.is_done ? ViewChecked : ViewNonChecked}
+                          onClick={() => handleCheck(goal.id)}
+                        />
+                        <GoalText>{String(goal.content)}</GoalText>{" "}
+                        
+                        <GoalEditImg src={ViewEdit} />  문자열로 변환
+                      </EachGoal>
+                    )
+                  )
+                )}
+              </GoalContainer>
+            ))
+          ) : (
+            <NoGoalsMessage>목표가 없습니다.</NoGoalsMessage>
+          )} */}
         </Goals>
       </CardContent>
     </CardContainer>
   );
 };
 
-export default ViewCard;
+// 추가: 목표가 없을 때 표시할 메시지 스타일
+const NoGoalsMessage = styled.div`
+  font-size: 14px;
+  color: #7a7a7a;
+  text-align: center;
+  margin-top: 20px;
+`;
+
+export default Card;
 
 // 스타일 정의
 const CardContainer = styled.div`

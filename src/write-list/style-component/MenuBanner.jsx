@@ -1,21 +1,29 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 import { Wrapper } from "./Banner";
+import { useNavigate } from "react-router";
 
 const MenuBanner = () => {
   const [clicked, setClicked] = useState("left");
+  const navigate = useNavigate();
 
   return (
     <MenuWrapper>
       <Menu
         className={clicked === "left" ? "clicked" : null}
-        onClick={() => setClicked("left")}
+        onClick={() => {
+          setClicked("left");
+          navigate("/ChoosePeriod");
+        }}
       >
         버킷리스트 작성
       </Menu>
       <Menu
         className={clicked === "right" ? "clicked" : null}
-        onClick={() => setClicked("right")}
+        onClick={() => {
+          setClicked("right");
+          navigate("/view");
+        }}
       >
         MY 버킷리스트
       </Menu>

@@ -1,32 +1,16 @@
 import React from "react";
 import styled from "styled-components";
 
-const PeriodButtons = ({ selectedPeriod, onPeriodSelect }) => {
-  const periods = ["전체", "단기", "장기", "달성"];
-
+const PeriodBtn = ({ period, isSelected, onClick }) => {
   return (
-    <PeriodContainer>
-      {periods.map((period) => (
-        <PeriodButton
-          key={period}
-          isSelected={selectedPeriod === period}
-          onClick={() => onPeriodSelect(period)}
-        >
-          <Dot isSelected={selectedPeriod === period} />
-          {period}
-        </PeriodButton>
-      ))}
-    </PeriodContainer>
+    <PeriodButton isSelected={isSelected} onClick={onClick}>
+      <Dot isSelected={isSelected} />
+      {period}
+    </PeriodButton>
   );
 };
 
-export default PeriodButtons;
-
-const PeriodContainer = styled.div`
-  display: flex;
-  justify-content: left;
-  margin-top: 20px;
-`;
+export default PeriodBtn;
 
 const PeriodButton = styled.button`
   display: flex;
@@ -38,7 +22,7 @@ const PeriodButton = styled.button`
   font-size: 14px;
   font-style: normal;
   font-weight: 400;
-  line-height: 22px; /* 157.143% */
+  line-height: 22px;
   letter-spacing: -0.408px;
   color: ${(props) => (props.isSelected ? "#6FBC89" : "#7a7a7a")};
   cursor: pointer;
