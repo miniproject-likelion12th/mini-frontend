@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "../style-component/Wrapper";
+import { Container, Wrapper } from "../style-component/Wrapper";
 import QuestionTitle from "../style-component/QuestionTitle";
 import NoticeText from "../style-component/NoticeText";
 import { Ask } from "./WriteDetail";
@@ -7,6 +7,8 @@ import styled from "styled-components";
 import WarningText from "../style-component/WarningText";
 import BottomButton from "../style-component/BottomButton";
 import { useLocation, useNavigate } from "react-router";
+import Banner from "../style-component/Banner";
+import MenuBanner from "../style-component/MenuBanner";
 
 const WriteYear = () => {
   const navigate = useNavigate();
@@ -31,20 +33,24 @@ const WriteYear = () => {
   };
 
   return (
-    <Container>
-      <Ask>
-        <QuestionTitle text="달성 기간을 설정해볼까요?" />
-        <NoticeText />
-      </Ask>
-      <Input
-        type="number"
-        placeholder="목표 기간을 숫자로만 입력해주세요. (예 : 5)"
-        value={years}
-        onChange={(e) => setYears(e.target.value)}
-      />
-      <WarningText text={warning} display={!!warning} />
-      <BottomButton text="다음" onClick={moveToNext} />
-    </Container>
+    <Wrapper>
+      <Banner backButton={true} />
+      <MenuBanner />
+      <Container>
+        <Ask>
+          <QuestionTitle text="달성 기간을 설정해볼까요?" />
+          <NoticeText />
+        </Ask>
+        <Input
+          type="number"
+          placeholder="목표 기간을 숫자로만 입력해주세요. (예 : 5)"
+          value={years}
+          onChange={(e) => setYears(e.target.value)}
+        />
+        <WarningText text={warning} display={!!warning} />
+        <BottomButton text="다음" onClick={moveToNext} />
+      </Container>
+    </Wrapper>
   );
 };
 

@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import styled, { css } from "styled-components";
-import { Container } from "../style-component/Wrapper";
+import { Container, Wrapper } from "../style-component/Wrapper";
 import BottomButton from "../style-component/BottomButton";
 import { useLocation, useNavigate } from "react-router";
 import CategoryList from "./component/CategoryList";
@@ -8,6 +8,8 @@ import QuestionTitle from "../style-component/QuestionTitle";
 import NoticeText from "../style-component/NoticeText";
 import WarningText from "../style-component/WarningText";
 import { shortTerm, translateEng } from "../definition/definition";
+import Banner from "../style-component/Banner";
+import MenuBanner from "../style-component/MenuBanner";
 
 const WriteDetail = () => {
   const navigate = useNavigate();
@@ -36,7 +38,9 @@ const WriteDetail = () => {
   };
 
   return (
-    <>
+    <Wrapper>
+      <Banner backButton={true} />
+      <MenuBanner />
       <NewContainer>
         <QnA>
           <Ask>
@@ -82,7 +86,7 @@ const WriteDetail = () => {
         display={showWaring}
       />
       <BottomButton text="다음" onClick={moveToNext} />
-    </>
+    </Wrapper>
   );
 };
 

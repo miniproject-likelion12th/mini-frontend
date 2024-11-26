@@ -15,7 +15,6 @@ import apiCall from "../../api/Api";
 import Loading from "../../component/common/Loading";
 
 const WriteGoal = () => {
-  const navigate = useNavigate();
   const location = useLocation();
   const [goals, setGoals] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -45,7 +44,7 @@ const WriteGoal = () => {
     <>
       {loading ? <Loading /> : null}
       <Wrapper>
-        <Banner />
+        <Banner backButton={modalOpen ? null : true} />
         <ModalPosition>
           {modalOpen && <ResultModal />}
           <MenuBanner />
