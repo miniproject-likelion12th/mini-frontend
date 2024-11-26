@@ -44,13 +44,6 @@ const Login = () => {
         loginData,
         null
       );
-      if (loginResponse.data.message !== "로그인 성공") {
-        setErrorMessage(
-          "로그인에 실패했습니다. 아이디와 비밀번호를 확인해주세요."
-        );
-        setLoading(false);
-        return;
-      }
 
       // Step 2: 토큰 요청
       const tokenResponse = await apiCall(
@@ -74,6 +67,13 @@ const Login = () => {
       }
     } catch (error) {
       setLoading(false);
+      if (
+        error.response.data.message === "이메일 또는 비밀번호가 잘못되었습니다."
+      ) {
+        setErrorMessage("이메일과 비밀번호를 정확히 입력해주세요.");
+        setLoading(false);
+        return;
+      }
       setErrorMessage("로그인 중 오류가 발생했습니다. 다시 시도해주세요.");
       console.error("Login error:", error);
     }
