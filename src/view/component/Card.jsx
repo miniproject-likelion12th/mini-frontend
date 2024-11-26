@@ -166,6 +166,13 @@ const Card = ({
     }
   };
 
+  // AchieveBtn 클릭 처리 함수
+  const handleAchieveBtn = () => {
+    console.log("click AchieveBtn");
+    setAchieveModalOpen(true);
+    is_achieved = true;
+  };
+
   // All - All : 버킷리스트 전체 조회
   //   const getAllAll = async () => {
   //     if (!token) {
@@ -260,7 +267,7 @@ const Card = ({
               <AchieveText style={{ color: "#6FBC89" }}>달성 완료</AchieveText>
             </NonAchieveBtn>
           ) : (
-            <AchieveBtn onClick={() => setAchieveModalOpen(true)}>
+            <AchieveBtn onClick={handleAchieveBtn}>
               <AchieveImg src={NonAchiveImg} />
               <AchieveText style={{ color: "#979797" }}>
                 버킷리스트 달성
