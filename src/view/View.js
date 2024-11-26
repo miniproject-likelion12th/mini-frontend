@@ -24,6 +24,8 @@ import SpendingWhiteIcon from "../assets/img/View_Category_Icon/Spending_white.s
 import SelfWhiteIcon from "../assets/img/View_Category_Icon/Self_white.svg";
 import CarrerWhiteIcon from "../assets/img/View_Category_Icon/Career_white.svg";
 import OthersWhiteIcon from "../assets/img/View_Category_Icon/Others_white.svg";
+import LeftArrow from "../assets/img/왼쪽화살표.svg";
+import RightArrow from "../assets/img/오른쪽화살표.svg";
 import Cookies from "js-cookie";
 import apiCall from "../api/Api";
 import Loading from "../component/common/Loading";
@@ -438,7 +440,7 @@ const View = () => {
         <S.CardContainer>
           {currentIndex > 0 && (
             <S.LeftArrow onClick={handlePrev}>
-              <span>{"<"}</span>
+              <img src={LeftArrow} />
             </S.LeftArrow>
           )}
           {currentCard ? (
@@ -456,7 +458,7 @@ const View = () => {
           )}
           {currentIndex < data.length - 1 && (
             <S.RightArrow onClick={handleNext}>
-              <span>{">"}</span>
+              <img src={RightArrow} />
             </S.RightArrow>
           )}
         </S.CardContainer>

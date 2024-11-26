@@ -264,96 +264,57 @@ const Card = ({
           </Motive>
           <Goals>
             <GoalTitle>구체적인 목표</GoalTitle>
-            {goalState.length > 0 ? (
-              Object.entries(
-                goalState.reduce((acc, goal) => {
-                  const key = goal.month
-                    ? `${goal.month}개월`
-                    : goal.year
-                    ? `${goal.year}년`
-                    : "미정"; // 기본 key 설정
-                  if (!acc[key]) acc[key] = [];
-                  acc[key].push(goal);
-                  return acc;
-                }, {})
-              ).map(([key, goalArray]) => (
-                <GoalContainer key={key}>
-                  <GreenBtn text={key} />
-                  {goalArray.map((goal) => (
-                    <EachGoal key={goal.id}>
-                      <GoalTextContianer>
+            <SpecificGoal>
+              {Object.entries(groupedGoals).length > 0 ? (
+                Object.entries(groupedGoals).map(([key, goalArray]) => (
+                  <GoalContainer key={key}>
+                    <GreenBtn text={key} />
+                    {goalArray.map((goal) => (
+                      <EachGoal key={goal.id}>
                         <CheckImg
                           src={
                             isDoneState[goal.id] ? ViewChecked : ViewNonChecked
                           }
-                          // onClick={() => handleCheck(goal.id)}
+                          onClick={() => handleCheck(goal.id)}
                         />
-                        <GoalText>{goal.content}</GoalText>
+                        <GoalText>{goal.content || "내용 없음"}</GoalText>
                         <GoalEditImg
                           src={ViewEdit}
                           onClick={() => {
                             setEditGoalId(goal.id);
-                            setCurrentEditContent(goal.content); // 수정 시작 시 현재 내용 설정
+                            setCurrentEditContent(goal.content);
                           }}
                         />
-                        <GoalDeleteImg
-                          src={ViewDelete}
-                          onClick={() => handleDeleteGoal(goal.id)}
-                        />
-                      </GoalTextContianer>
-                      {editGoalId === goal.id && (
-                        <GoalInputContianer>
-                          <CheckImg
-                            src={
-                              isDoneState[goal.id]
-                                ? ViewChecked
-                                : ViewNonChecked
-                            }
-                            // onClick={() => handleCheck(goal.id)}
-                          />
-                          <EditInput
-                            type="text"
-                            value={newContent}
-                            onChange={(e) => setNewContent(e.target.value)}
-                          />
-                          <GoalSendImg
-                            src={ViewSend}
-                            onClick={() => {
-                              handleGoalEdit(goal.id, newContent);
-                              console.log("수정(추가) : ", goal.id); // 연동 후 console 정리
-                            }}
-                          />
-                          <GoalDeleteImg
-                            src={ViewDelete}
-                            // onClick={() => handleDeleteGoal(goal.id)}
-                          />
-                        </GoalInputContianer>
-                      )}
-                    </EachGoal>
-                  ))}
-                </GoalContainer>
-              ))
-            ) : (
-              <NoGoalsMessage>목표가 없습니다.</NoGoalsMessage>
-            )}
+                      </EachGoal>
+                    ))}
+                  </GoalContainer>
+                ))
+              ) : (
+                <NoGoalsMessage>목표가 없습니다.</NoGoalsMessage>
+              )}
+            </SpecificGoal>
           </Goals>
         </CardContent>
-        <GreenLine />
-        <AchieveContainer>
-          {is_achieved ? (
-            <NonAchieveBtn onClick={() => {}}>
-              <AchieveImg src={AchiveImg} />
-              <AchieveText style={{ color: "#6FBC89" }}>달성 완료</AchieveText>
-            </NonAchieveBtn>
-          ) : (
-            <AchieveBtn onClick={handleAchieveBtn}>
-              <AchieveImg src={NonAchiveImg} />
-              <AchieveText style={{ color: "#979797" }}>
-                버킷리스트 달성
-              </AchieveText>
-            </AchieveBtn>
-          )}
-        </AchieveContainer>
+        <BottomSpace>
+          <GreenLine />
+          <AchieveContainer>
+            {is_achieved ? (
+              <NonAchieveBtn onClick={() => {}}>
+                <AchieveImg src={AchiveImg} />
+                <AchieveText style={{ color: "#6FBC89" }}>
+                  달성 완료
+                </AchieveText>
+              </NonAchieveBtn>
+            ) : (
+              <AchieveBtn onClick={handleAchieveBtn}>
+                <AchieveImg src={NonAchiveImg} />
+                <AchieveText style={{ color: "#979797" }}>
+                  버킷리스트 달성
+                </AchieveText>
+              </AchieveBtn>
+            )}
+          </AchieveContainer>
+        </BottomSpace>
       </CardContainer>
     </>
   );
@@ -373,6 +334,9 @@ export default Card;
 const CardContainer = styled.div`
   margin: 7px auto 60px;
   width: 340px;
+  height: 516px;
+  display: flex;
+  flex-direction: column;
   align-self: stretch;
   border-radius: 20px;
   border: 1px solid #6fbc89;
@@ -430,13 +394,15 @@ const LineDiv = styled.div`
 
 // CardContent
 const CardContent = styled.div`
-  padding: 13px 11px 0;
+  padding: 13px 12px 0;
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
 `;
 
 // Motive
-const Motive = styled.div`
-  margin: 0 auto 20px;
-`;
+const Motive = styled.div``;
+
 const MotiveTitle = styled.div`
   color: #4a4a4a;
   font-family: "YiSunShinDotumB";
@@ -457,7 +423,7 @@ const MotiveBox = styled.div`
   align-items: center;
   margin: 0 auto;
   padding: 12px 10px;
-  width: 270px;
+  width: auto;
   gap: 10px;
   flex-wrap: wrap;
   border-radius: 5px;
@@ -473,9 +439,11 @@ const MotiveBox = styled.div`
 
 // Goals
 const Goals = styled.div`
-  margin-top: 20px;
-  margin-bottom: 50px;
+  display: flex;
+  flex-direction: column;
+  gap: 9px;
 `;
+
 const GoalTitle = styled.div`
   color: #4a4a4a;
   font-family: "YiSunShinDotumB";
@@ -485,10 +453,23 @@ const GoalTitle = styled.div`
   line-height: 22px; /* 129.412% */
   letter-spacing: -0.408px;
 `;
-const GoalContainer = styled.div`
-  margin-top: 10px;
-  padding-left: 10px;
+
+const SpecificGoal = styled.div`
+  height: 200px;
+  overflow-y: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  scrollbar-width: none; /* Firefox용 스크롤바 숨김 */
+  -ms-overflow-style: none; /* IE 및 Edge용 스크롤바 숨김 */
+  &::-webkit-scrollbar {
+    display: none; /* Chrome, Safari용 스크롤바 숨김 */
+  }
 `;
+
+const GoalContainer = styled.div``;
+
 const EachGoal = styled.div`
   /* display: flex;
   align-items: center;
@@ -496,7 +477,6 @@ const EachGoal = styled.div`
   margin-top: 10px;
   position: relative; */
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
   gap: 4px; /* 목표 간 간격 */
   margin-top: 10px;
   position: relative;
@@ -564,12 +544,17 @@ const GoalDeleteImg = styled.img`
 `;
 
 // achive
+const BottomSpace = styled.div`
+  margin-top: auto;
+`;
+
 const GreenLine = styled.div`
   width: 100%;
   height: 1px;
   background: #6fbc89;
   box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
 `;
+
 const AchieveContainer = styled.div`
   display: flex;
   align-items: center; /* 수직 중앙 정렬 */
@@ -578,9 +563,15 @@ const AchieveContainer = styled.div`
   padding: 14px 15px;
 `;
 const NonAchieveBtn = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
   cursor: pointer;
 `;
 const AchieveBtn = styled.div`
+  display: flex;
+  align-items: center;
+  gap: 4px;
   cursor: pointer;
 `;
 const AchieveImg = styled.img`

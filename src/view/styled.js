@@ -26,7 +26,7 @@ export const CardContainer = styled.div`
 export const LeftArrow = styled.div`
   position: absolute;
   margin-left: -17px;
-  top: 430px;
+  top: 517px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 15px;
@@ -36,7 +36,7 @@ export const LeftArrow = styled.div`
 export const RightArrow = styled.div`
   position: absolute;
   margin-left: 350px; /* Card 오른쪽에 위치 */
-  top: 430px;
+  top: 517px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 15px;
