@@ -23,10 +23,12 @@ const ResultModal = () => {
         <Text>이루미에게 알려주세요 :)</Text>
       </WhiteTextBox>
       <ButtonGroup>
-        <GreenButton onClick={() => navigate("/ChoosePeriod")}>
+        <GreenButton onClick={() => navigate("/view")}>
           MY 버킷리스트
         </GreenButton>
-        <WhiteButton onClick={() => navigate("/view")}>확인</WhiteButton>
+        <WhiteButton onClick={() => navigate("/ChoosePeriod")}>
+          확인
+        </WhiteButton>
       </ButtonGroup>
     </Container>
   );
