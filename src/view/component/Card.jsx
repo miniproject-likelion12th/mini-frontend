@@ -90,18 +90,18 @@ const Card = ({
   const [achieveModalOpen, setAchieveModalOpen] = useState(false);
   const token = Cookies.get("access_token");
 
-  // const handleCheck = (goalId) => {
-  //   setIsDoneState((prev) => ({
-  //     ...prev,
-  //     [goalId]: !prev[goalId], // true/false 토글
-  //   }));
-  //   // goalState 업데이트 (연동 필요 시 이 부분 유지)
-  //   setGoalState((prevGoals) =>
-  //     prevGoals.map((goal) =>
-  //       goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
-  //     )
-  //   );
-  // };
+  const handleCheck = (goalId) => {
+    setIsDoneState((prev) => ({
+      ...prev,
+      [goalId]: !prev[goalId], // true/false 토글
+    }));
+    // goalState 업데이트 (연동 필요 시 이 부분 유지)
+    setGoalState((prevGoals) =>
+      prevGoals.map((goal) =>
+        goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
+      )
+    );
+  };
 
   const groupedGoals = goals.length
     ? goals.reduce((acc, goal) => {
