@@ -416,7 +416,6 @@ const EachGoal = styled.div`
   margin-top: 10px;
   position: relative; */
   display: flex;
-  flex-direction: column; /* 세로 정렬 */
   gap: 4px; /* 목표 간 간격 */
   margin-top: 10px;
   position: relative;
