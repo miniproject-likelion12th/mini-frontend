@@ -1,7 +1,10 @@
 import React from "react";
+import { useNavigate } from "react-router";
 import styled from "styled-components";
 
 const ResultModal = () => {
+  const navigate = useNavigate();
+
   return (
     <Container>
       <GreenTextBox>
@@ -19,8 +22,10 @@ const ResultModal = () => {
         <Text>이루미에게 알려주세요 :)</Text>
       </WhiteTextBox>
       <ButtonGroup>
-        <GreenButton>MY 버킷리스트</GreenButton>
-        <WhiteButton>확인</WhiteButton>
+        <GreenButton onClick={() => navigate("/ChoosePeriod")}>
+          MY 버킷리스트
+        </GreenButton>
+        <WhiteButton onClick={() => navigate("/view")}>확인</WhiteButton>
       </ButtonGroup>
     </Container>
   );

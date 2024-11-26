@@ -71,16 +71,10 @@ const DetailGoal = ({ period, month, year, setGoals, loading, setLoading }) => {
       readOnly: !updatedInputs[idx].readOnly,
     }; // readOnly 토글
     setInputs(updatedInputs);
-  };
 
-  useEffect(() => {
-    if (!inputs.length || !loading) return;
     const dataToSave = transformGoals(period, inputs);
-    console.log("dataToSave", dataToSave);
-
     setGoals((prev) => prev.concat(dataToSave));
-    setLoading(false);
-  }, [loading]);
+  };
 
   return (
     <Wrapper1>

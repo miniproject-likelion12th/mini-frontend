@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Container } from "../style-component/Wrapper";
+import { Container, Wrapper } from "../style-component/Wrapper";
 import QuestionTitle from "../style-component/QuestionTitle";
 import NoticeText from "../style-component/NoticeText";
 import { Ask } from "./WriteDetail";
@@ -7,6 +7,8 @@ import styled from "styled-components";
 import WarningText from "../style-component/WarningText";
 import BottomButton from "../style-component/BottomButton";
 import { useLocation, useNavigate } from "react-router";
+import Banner from "../style-component/Banner";
+import MenuBanner from "../style-component/MenuBanner";
 
 const WriteYear = () => {
   const navigate = useNavigate();
@@ -21,8 +23,9 @@ const WriteYear = () => {
       setWarning("필수 입력 항목을 모두 작성해주세요.");
       return;
     }
-    if (isNaN(years) || years < 1) {
+    if (isNaN(years) || years < 1 || years > 100) {
       setWarning("형식이 올바르지 않습니다.");
+      setYears("");
       return;
     }
 
@@ -31,20 +34,25 @@ const WriteYear = () => {
   };
 
   return (
-    <Container>
-      <Ask>
-        <QuestionTitle text="달성 기간을 설정해볼까요?" />
-        <NoticeText />
-      </Ask>
-      <Input
-        type="number"
-        placeholder="목표 기간을 숫자로만 입력해주세요. (예 : 5)"
-        value={years}
-        onChange={(e) => setYears(e.target.value)}
-      />
-      <WarningText text={warning} display={!!warning} />
-      <BottomButton text="다음" onClick={moveToNext} />
-    </Container>
+    <Wrapper>
+      <Banner backButton={true} />
+      <MenuBanner />
+      <Container>
+        <Ask>
+          <QuestionTitle text="달성 기간을 설정해볼까요?" />
+          <NoticeText />
+        </Ask>
+        <Input
+          type="number"
+          placeholder="목표 기간을 숫자로만 입력해주세요. (예 : 5)"
+          value={years}
+          onChange={(e) => setYears(e.target.value)}
+          onWheel={(e) => e.target.blur()}
+        />
+        <WarningText text={warning} display={!!warning} />
+        <BottomButton text="다음" onClick={moveToNext} />
+      </Container>
+    </Wrapper>
   );
 };
 
