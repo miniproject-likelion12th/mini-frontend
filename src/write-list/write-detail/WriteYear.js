@@ -73,6 +73,7 @@ const Input = styled.input`
   }
   border: 0;
   border-bottom: 1px solid #6fbc89;
+  background-color: transparent;
   outline: 0;
   font-size: 14px;
   font-family: "YiSunShinDotumM";

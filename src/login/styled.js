@@ -75,6 +75,10 @@ export const Password = styled.input`
   outline: none;
   padding: 0 12px;
   font-family: "YiSunShinDotumM";
+  /* 눈 아이콘 제거 */
+  &::-webkit-textfield-decoration-container {
+    display: none;
+  }
 `;
 export const EyeContainer = styled.div`
   position: relative;

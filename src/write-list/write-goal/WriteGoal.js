@@ -9,7 +9,7 @@ import GoalList from "./component/GoalList";
 import ResultModal from "./component/ResultModal";
 import Banner from "../style-component/Banner";
 import MenuBanner from "../style-component/MenuBanner";
-import { useLocation, useNavigate } from "react-router";
+import { useLocation } from "react-router";
 import Cookies from "js-cookie";
 import apiCall from "../../api/Api";
 import Loading from "../../component/common/Loading";
@@ -24,14 +24,14 @@ const WriteGoal = () => {
   const token = Cookies.get("access_token");
 
   const CreateBucket = async () => {
-    if (!goals) {
+    request["goals"] = [...new Set(goals)];
+    if (!goals.length) {
       setShowWaring(true);
       return;
     }
     setLoading(true);
 
     try {
-      request["goals"] = [...new Set(goals)];
       const response = apiCall("bucketlist/", "POST", request, token);
       setLoading(false);
       setModalOpen(true);
