@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styled from "styled-components";
 import AllIcon from "../../assets/img/View_Category_Icon/View_all.svg";
 import TravelIcon from "../../assets/img/View_Category_Icon/View_travel.svg";
@@ -23,6 +23,9 @@ import NonAchiveImg from "../../assets/img/NonAchiveImg.svg";
 import { useNavigate } from "react-router";
 import ViewDeleteModal from "../../component/common/ViewDeleteModal";
 import ViewAchiveModal from "../../component/common/ViewAchiveModal";
+import Cookies from "js-cookie";
+import apiCall from "../../api/Api";
+import Loading from "../../component/common/Loading";
 
 const categoryImg = (category) => {
   const categories = {
@@ -52,11 +55,12 @@ const translateCategory = (category) => {
   return categoryMap[category] || "전체";
 };
 
-const translatePeriod = (period) => {
+const engtokorPeriod = (period) => {
   const periodMap = {
     short_term: "단기",
     long_term: "장기",
     achieved: "달성",
+    not_achieved: "진행중",
   };
   return periodMap[period] || "전체";
 };
@@ -70,6 +74,7 @@ const Card = ({
   is_achieved,
   goals = [],
 }) => {
+  const [loading, setLoading] = useState(false);
   const navigate = useNavigate();
   const [goalState, setGoalState] = useState(goals);
   const [editGoalId, setEditGoalId] = useState(null); // 수정 중인 목표 ID
@@ -83,6 +88,7 @@ const Card = ({
   const [newContent, setNewContent] = useState("");
   const [deleteModalOpen, setDeleteModalOpen] = useState(false);
   const [achieveModalOpen, setAchieveModalOpen] = useState(false);
+  const token = Cookies.get("access_token");
 
   const handleCheck = (goalId) => {
     setIsDoneState((prev) => ({
@@ -109,17 +115,92 @@ const Card = ({
 
   const groupedGoals = goals.length
     ? goals.reduce((acc, goal) => {
-        const key = goal.month ? `${goal.month}개월` : `${goal.year}년`;
+        const key = goal.month
+          ? `${goal.month}개월`
+          : goal.year
+          ? `${goal.year}년`
+          : "미정"; // 기본 key 설정
         if (!acc[key]) acc[key] = [];
         acc[key].push(goal);
         return acc;
       }, {})
     : {};
 
+  useEffect(() => {
+    console.log("Card 렌더링 ID 확인:", id);
+  }, [id]);
+
+  // 버킷리스트 삭제
+  const handleDelete = async (id) => {
+    try {
+      const response = await apiCall(
+        `bucketlist/${id}/`,
+        "DELETE",
+        null,
+        token
+      );
+      console.log("삭제 성공", response);
+      setDeleteModalOpen(false);
+      alert(`${title}을 삭제하였습니다. 🧹🧹`);
+      // 성공 시 UI에서 해당 항목 제거
+    } catch (error) {
+      console.error("삭제 실패", error);
+    }
+  };
+
+  // 버킷리스트 달성 상태 변경
+  const handleAchieve = async (id) => {
+    try {
+      const response = await apiCall(
+        `bucketlist/${id}/`,
+        "PATCH",
+        { is_achieved: true },
+        token
+      );
+      console.log("달성 성공", response);
+      setAchieveModalOpen(false);
+      alert(`${title}을 달성하였습니다. 🎉🎉`);
+      // 성공 시 UI 업데이트
+    } catch (error) {
+      console.error("달성 실패", error);
+    }
+  };
+
+  // AchieveBtn 클릭 처리 함수
+  const handleAchieveBtn = () => {
+    console.log("click AchieveBtn");
+    setAchieveModalOpen(true);
+    is_achieved = true;
+  };
+
+  // All - All : 버킷리스트 전체 조회
+  //   const getAllAll = async () => {
+  //     if (!token) {
+  //       alert("로그인 정보가 없습니다.");
+  //       return;
+  //     }
+
+  //     try {
+  //       setLoading(true);
+  //       // 버킷리스트 전체 조회 API 호출 (GET 요청)
+  //       const response = await apiCall("bucketlist/", "GET", null, token);
+  //       console.log("버킷리스트 전체 조회 api 응답", response);
+  //       const data = response.data;
+  //       setLoading(false);
+  //     } catch (error) {
+  //       console.error("버킷리스트 전체 조회 실패", error);
+  //       setLoading(false);
+  //     }
+  //   };
+
   return (
     <>
-      {deleteModalOpen && <ViewDeleteModal title={title} id={id} />}
-      {achieveModalOpen && <ViewAchiveModal title={title} id={id} />}
+      {deleteModalOpen && (
+        <ViewDeleteModal title={title} id={id} onDelete={handleDelete} />
+      )}
+      {achieveModalOpen && (
+        <ViewAchiveModal title={title} id={id} onAchieve={handleAchieve} />
+      )}
       <CardContainer>
         <CardHeader>
           <Title>{title}</Title>
@@ -128,7 +209,7 @@ const Card = ({
               iconSrc={categoryImg(category)}
               text={translateCategory(category)}
             />
-            <GreenBtn text={translatePeriod(period)} />
+            <GreenBtn text={engtokorPeriod(period)} />
             <GreenBtn text={is_achieved ? "달성" : "진행중"} />
             <CardEditImg
               src={ViewEdit}
@@ -155,49 +236,20 @@ const Card = ({
                   <GreenBtn text={key} />
                   {goalArray.map((goal) => (
                     <EachGoal key={goal.id}>
-                      <GoalTextContianer>
-                        <CheckImg
-                          src={
-                            isDoneState[goal.id] ? ViewChecked : ViewNonChecked
-                          }
-                          onClick={() => handleCheck(goal.id)}
-                        />
-                        <GoalText>{goal.content}</GoalText>
-                        <GoalEditImg
-                          src={ViewEdit}
-                          onClick={() => {
-                            setEditGoalId(goal.id);
-                            setCurrentEditContent(goal.content); // 수정 시작 시 현재 내용 설정
-                          }}
-                        />
-                        <GoalDeleteImg src={ViewDelete} />
-                      </GoalTextContianer>
-
-                      {editGoalId === goal.id && (
-                        <GoalInputContianer>
-                          <CheckImg
-                            src={
-                              isDoneState[goal.id]
-                                ? ViewChecked
-                                : ViewNonChecked
-                            }
-                            onClick={() => handleCheck(goal.id)}
-                          />
-                          <EditInput
-                            type="text"
-                            value={newContent}
-                            onChange={(e) => setNewContent(e.target.value)}
-                          />
-                          <GoalSendImg
-                            src={ViewSend}
-                            onClick={() => {
-                              handleEdit(goal.id);
-                              console.log("수정(추가) : ", goal.id); // 연동 후 console 정리
-                            }}
-                          />
-                          <GoalDeleteImg src={ViewDelete} />
-                        </GoalInputContianer>
-                      )}
+                      <CheckImg
+                        src={
+                          isDoneState[goal.id] ? ViewChecked : ViewNonChecked
+                        }
+                        onClick={() => handleCheck(goal.id)}
+                      />
+                      <GoalText>{goal.content || "내용 없음"}</GoalText>
+                      <GoalEditImg
+                        src={ViewEdit}
+                        onClick={() => {
+                          setEditGoalId(goal.id);
+                          setCurrentEditContent(goal.content);
+                        }}
+                      />
                     </EachGoal>
                   ))}
                 </GoalContainer>
@@ -215,7 +267,7 @@ const Card = ({
               <AchieveText style={{ color: "#6FBC89" }}>달성 완료</AchieveText>
             </NonAchieveBtn>
           ) : (
-            <AchieveBtn onClick={() => setAchieveModalOpen(true)}>
+            <AchieveBtn onClick={handleAchieveBtn}>
               <AchieveImg src={NonAchiveImg} />
               <AchieveText style={{ color: "#979797" }}>
                 버킷리스트 달성
@@ -270,16 +322,18 @@ const HashtagContainer = styled.div`
 `;
 
 const CardEditImg = styled.img`
+  position: absolute;
   margin-top: 5px;
-  margin-left: 104px;
+  right: 60px;
   width: 17px;
   height: 17px;
   flex-shrink: 0;
   cursor: pointer;
 `;
 const CardDeleteImg = styled.img`
+  position: absolute;
   margin-top: 5px;
-  margin-left: 3px;
+  right: 35px;
   width: 17px;
   height: 17px;
   flex-shrink: 0;
