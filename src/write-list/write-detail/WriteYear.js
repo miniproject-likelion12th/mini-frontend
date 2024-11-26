@@ -23,8 +23,9 @@ const WriteYear = () => {
       setWarning("필수 입력 항목을 모두 작성해주세요.");
       return;
     }
-    if (isNaN(years) || years < 1) {
+    if (isNaN(years) || years < 1 || years > 100) {
       setWarning("형식이 올바르지 않습니다.");
+      setYears("");
       return;
     }
 
