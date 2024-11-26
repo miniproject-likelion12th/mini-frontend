@@ -18,6 +18,7 @@ export default WarningText;
 const Wrapper = styled.div`
   width: 100%;
   height: 33px;
+  margin-top: auto;
 `;
 
 const Display = styled.div`
