@@ -25,8 +25,8 @@ export const CardContainer = styled.div`
 `;
 export const LeftArrow = styled.div`
   position: absolute;
-  margin-left: -15px;
-  top: 70%;
+  margin-left: -17px;
+  top: 430px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 15px;
@@ -36,7 +36,7 @@ export const LeftArrow = styled.div`
 export const RightArrow = styled.div`
   position: absolute;
   margin-left: 350px; /* Card 오른쪽에 위치 */
-  top: 70%;
+  top: 430px;
   transform: translateY(-50%);
   cursor: pointer;
   font-size: 15px;
@@ -98,4 +98,18 @@ export const PeriodContainer = styled.div`
   width: 100%; /* 부모 요소의 전체 너비를 사용 */
   padding-left: 50px; /* 왼쪽 여백 추가 */
   margin-top: 10px; /* 상단 여백 */
+`;
+
+export const NoDataCardBox = styled.div`
+  margin-top: 7px;
+  width: 340px;
+  height: 50vh;
+  align-self: stretch;
+  border-radius: 20px;
+  border: 1px solid #6fbc89;
+  background: #fff;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.25);
+  display: flex;
+  justify-content: center;
+  align-items: center;
 `;
