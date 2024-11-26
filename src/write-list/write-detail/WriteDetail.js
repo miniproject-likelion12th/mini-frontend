@@ -70,6 +70,7 @@ const WriteDetail = () => {
         <QnA>
           <Ask>
             <QuestionTitle text="버킷리스트가 된 계기는 무엇인가요?" />
+            <NoticeText />
           </Ask>
           <Irume>
             <img src="banner/irume-input-deco.svg" />
