@@ -47,7 +47,7 @@ const WriteYear = () => {
           placeholder="목표 기간을 숫자로만 입력해주세요. (예 : 5)"
           value={years}
           onChange={(e) => setYears(e.target.value)}
-          onWheel={(e) => e.target.blur()}
+          onWheel={(e) => e.preventDefault()}
         />
         <WarningText text={warning} display={!!warning} />
         <BottomButton text="다음" onClick={moveToNext} />
