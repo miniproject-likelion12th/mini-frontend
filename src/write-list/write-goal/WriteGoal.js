@@ -32,6 +32,7 @@ const WriteGoal = () => {
     setLoading(true);
 
     try {
+      request["goals"] = [...new Set(goals)];
       const response = apiCall("bucketlist/", "POST", request, token);
       setLoading(false);
       setModalOpen(true);
@@ -39,10 +40,6 @@ const WriteGoal = () => {
       console.log(e);
     }
   };
-
-  useEffect(() => {
-    request["goals"] = goals;
-  }, [goals]);
 
   return (
     <>
