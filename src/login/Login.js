@@ -70,7 +70,8 @@ const Login = () => {
     } catch (error) {
       setLoading(false);
       if (
-        error.response.data.message === "이메일 또는 비밀번호가 잘못되었습니다."
+        error.response?.data.message ===
+        "이메일 또는 비밀번호가 잘못되었습니다."
       ) {
         setErrorMessage("이메일과 비밀번호를 정확히 입력해주세요.");
         setLoading(false);
