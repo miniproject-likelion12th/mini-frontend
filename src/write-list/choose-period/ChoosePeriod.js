@@ -11,6 +11,7 @@ import MenuBanner from "../style-component/MenuBanner";
 const ChoosePeriod = () => {
   const [periodClicked, setPeriodClicked] = useState(null);
   const navigate = useNavigate();
+  const username = localStorage.getItem("username") || "김사자";
 
   return (
     <Wrapper>
@@ -18,7 +19,7 @@ const ChoosePeriod = () => {
       <MenuBanner />
       <Container>
         <Hello>
-          <QuestionTitle text="안녕하세요, 김사자님!" />
+          <QuestionTitle text={`안녕하세요, ${username}님!`} />
           <Logo />
         </Hello>
         <Ask>

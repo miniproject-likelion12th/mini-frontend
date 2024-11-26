@@ -4,12 +4,13 @@ import styled from "styled-components";
 
 const ResultModal = () => {
   const navigate = useNavigate();
+  const username = localStorage.getItem("username") || "김사자";
 
   return (
     <Container>
       <GreenTextBox>
         <Text>버킷리스트 작성이 끝났어요.</Text>
-        <Text>김사자님의 꿈이 이루어지기를</Text>
+        <Text>{username}님의 꿈이 이루어지기를</Text>
         <Text>
           이루미가 응원할게요!
           <Logo />

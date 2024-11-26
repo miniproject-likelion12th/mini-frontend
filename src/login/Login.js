@@ -44,6 +44,8 @@ const Login = () => {
         loginData,
         null
       );
+      // 로컬스토리지에 사용자 이름 저장
+      localStorage.setItem("username", loginResponse.data.username);
 
       // Step 2: 토큰 요청
       const tokenResponse = await apiCall(
