@@ -90,28 +90,18 @@ const Card = ({
   const [achieveModalOpen, setAchieveModalOpen] = useState(false);
   const token = Cookies.get("access_token");
 
-  const handleCheck = (goalId) => {
-    setIsDoneState((prev) => ({
-      ...prev,
-      [goalId]: !prev[goalId], // true/false 토글
-    }));
-    // goalState 업데이트 (연동 필요 시 이 부분 유지)
-    setGoalState((prevGoals) =>
-      prevGoals.map((goal) =>
-        goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
-      )
-    );
-  };
-
-  const handleEdit = (goalId) => {
-    setGoalState((prevGoals) =>
-      prevGoals.map((goal) =>
-        goal.id === goalId ? { ...goal, content: currentEditContent } : goal
-      )
-    );
-    setEditGoalId(null); // 수정 완료 후 ID 초기화
-    setCurrentEditContent(""); // 입력값 초기화
-  };
+  // const handleCheck = (goalId) => {
+  //   setIsDoneState((prev) => ({
+  //     ...prev,
+  //     [goalId]: !prev[goalId], // true/false 토글
+  //   }));
+  //   // goalState 업데이트 (연동 필요 시 이 부분 유지)
+  //   setGoalState((prevGoals) =>
+  //     prevGoals.map((goal) =>
+  //       goal.id === goalId ? { ...goal, is_done: !goal.is_done } : goal
+  //     )
+  //   );
+  // };
 
   const groupedGoals = goals.length
     ? goals.reduce((acc, goal) => {
@@ -139,7 +129,6 @@ const Card = ({
         null,
         token
       );
-      console.log("삭제 성공", response);
       setDeleteModalOpen(false);
       alert(`${title}을 삭제하였습니다. 🧹🧹`);
       // 성공 시 UI에서 해당 항목 제거
@@ -157,10 +146,18 @@ const Card = ({
         { is_achieved: true },
         token
       );
-      console.log("달성 성공", response);
+      console.log("버킷리스트 달성 성공", response);
+
+      // 상태 업데이트: 목표 달성 상태 변경
+      // setGoalState((prevGoals) =>
+      //   prevGoals.map((goal) =>
+      //     goal.id === id ? { ...goal, is_achieved: true } : goal
+      //   )
+      // );
+
+      // is_achieved 상태를 업데이트하여 리렌더링 트리거
       setAchieveModalOpen(false);
       alert(`${title}을 달성하였습니다. 🎉🎉`);
-      // 성공 시 UI 업데이트
     } catch (error) {
       console.error("달성 실패", error);
     }
@@ -171,6 +168,43 @@ const Card = ({
     console.log("click AchieveBtn");
     setAchieveModalOpen(true);
     is_achieved = true;
+  };
+
+  // 세부 목표(Goal) 삭제 처리 함수
+  const handleDeleteGoal = async (id) => {
+    console.log("삭제 요청 ID:", id); // 삭제하려는 ID 확인
+    try {
+      const response = await apiCall(
+        `bucketlist/goal/${id}/`,
+        "DELETE",
+        null,
+        token
+      );
+      console.log("세부목표 삭제 성공", response);
+
+      // 삭제된 goalState를 제거하여 UI 업데이트
+      setGoalState((prevGoals) => prevGoals.filter((goal) => goal.id !== id));
+    } catch (error) {
+      console.error("세부목표 삭제 실패", error);
+    }
+  };
+
+  const handleGoalEdit = async (id, content) => {
+    console.log("수정 요청 ID:", id); // 삭제하려는 ID 확인
+    try {
+      const response = await apiCall(
+        `bucketlist/goal/${id}/`,
+        "PATCH",
+        { content: content },
+        token
+      );
+      console.log("세부목표 수정 성공", response);
+
+      setEditGoalId(null); // 수정 완료 후 ID 초기화
+      setNewContent(""); // 입력값 초기화
+    } catch (error) {
+      console.error("세부목표 수정 실패", error);
+    }
   };
 
   // All - All : 버킷리스트 전체 조회
@@ -328,12 +362,13 @@ const Title = styled.div`
 const HashtagContainer = styled.div`
   display: flex;
   gap: 4px;
+  position: relative;
 `;
 
 const CardEditImg = styled.img`
   position: absolute;
   margin-top: 5px;
-  right: 60px;
+  right: 38px;
   width: 17px;
   height: 17px;
   flex-shrink: 0;
@@ -342,7 +377,7 @@ const CardEditImg = styled.img`
 const CardDeleteImg = styled.img`
   position: absolute;
   margin-top: 5px;
-  right: 35px;
+  right: 15px;
   width: 17px;
   height: 17px;
   flex-shrink: 0;
