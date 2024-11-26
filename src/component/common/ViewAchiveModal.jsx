@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ViewAchiveModal = ({ title, id }) => {
+const ViewAchiveModal = ({ title, id, onAchieve }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
@@ -9,8 +9,7 @@ const ViewAchiveModal = ({ title, id }) => {
   };
 
   const handleAchieve = () => {
-    console.log("달성", title, id);
-    setIsOpen(false);
+    onAchieve(id);
   };
 
   if (!isOpen) return null;

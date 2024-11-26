@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import styled from "styled-components";
 
-const ViewDeleteModal = ({ title, id }) => {
+const ViewDeleteModal = ({ title, id, onDelete }) => {
   const [isOpen, setIsOpen] = useState(true);
 
   const handleClose = () => {
@@ -9,8 +9,11 @@ const ViewDeleteModal = ({ title, id }) => {
   };
 
   const handleDelete = () => {
-    console.log("삭제", title, id);
-    setIsOpen(false);
+    if (id) {
+      onDelete(id); // id가 제대로 전달되어야 함
+    } else {
+      console.error("삭제할 ID가 전달되지 않았습니다.");
+    }
   };
 
   if (!isOpen) return null;
